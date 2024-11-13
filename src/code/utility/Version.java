@@ -1,5 +1,7 @@
+package utility;
+
 /**
- * The {@code Version} class represents the version information of this software application.
+ * The {@code util.Version} class represents the version information of this software application.
  * It provides static methods to retrieve the version details which are represented as static constants.
  * This class is designed as a utility class and cannot be instantiated.
  * <p>
