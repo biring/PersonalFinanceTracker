@@ -21,7 +21,8 @@ public class MainController extends BaseClass<MainView> {
     }
 
     // Method to initialize the application
-    public void start(Scanner scanner) {
+    @Override
+    public void start() {
         this.accountController = new AccountController(scanner);
         this.categoryController = new CategoryController(scanner);
         this.budgetController = new BudgetController(scanner);
@@ -31,6 +32,7 @@ public class MainController extends BaseClass<MainView> {
     }
 
     // Method to start the application flow
+    @Override
     public void run() {
         int selection = 0;
         do {
