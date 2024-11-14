@@ -22,7 +22,7 @@ public class Main {
         MainController mainController = new MainController(scanner);
 
         // Call a method on the controller to kick off the application logic
-        mainController.start();  // Example: Starts the application logic
+        mainController.start();
+        mainController.run();
     }
-
 }
