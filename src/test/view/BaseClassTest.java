@@ -2,14 +2,15 @@ package view;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class BaseViewTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class BaseClassTest {
 
     @Test
     public void testDisplayMenu() {
@@ -157,7 +158,8 @@ public class BaseViewTest {
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        BaseClass baseView = new BaseClass(new Scanner(System.in)) {};  // Anonymous subclass to access protected method
+        BaseClass baseView = new BaseClass(new Scanner(System.in)) {
+        };  // Anonymous subclass to access protected method
 
         // Edge case: empty string
         baseView.printMessage("");
@@ -179,7 +181,8 @@ public class BaseViewTest {
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        BaseClass baseView = new BaseClass(new Scanner(System.in)) {};  // Anonymous subclass to access protected method
+        BaseClass baseView = new BaseClass(new Scanner(System.in)) {
+        };  // Anonymous subclass to access protected method
 
         // Edge case: special characters
         String specialChars = "Hello\nWorld\t!";
@@ -194,7 +197,6 @@ public class BaseViewTest {
         // Restore original System.out
         System.setOut(originalSystemOut);
     }
-
 
 
 }

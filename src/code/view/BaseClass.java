@@ -3,11 +3,11 @@ package view;
 import java.util.Scanner;
 import utils.InputUtils;
 
-public class BaseView implements ViewInterface {
+public class BaseClass implements Interface {
     protected Scanner scanner;
     protected int menuOptionMax;
 
-    public BaseView(Scanner scanner) {
+    public BaseClass(Scanner scanner) {
         this.scanner = scanner;
     }
 
