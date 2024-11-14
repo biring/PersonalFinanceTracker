@@ -12,14 +12,14 @@ public class BaseClass implements Interface {
     }
 
     @Override
-    public void displayMenu(String[] menuOptions) {
+    public final void displayMenu(String[] menuOptions) {
         this.menuOptionMax = menuOptions.length;
         String formattedMenu = Console.formatList(menuOptions);
         printMessageLine(formattedMenu);
     }
 
     @Override
-    public int promptForMenuSelection(String message) {
+    public final int promptForMenuSelection(String message) {
         while (true) {
             printMessage(message);
             String input = Console.getInput(scanner);
