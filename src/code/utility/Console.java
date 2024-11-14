@@ -1,8 +1,8 @@
-package utils;
+package utility;
 
 import java.util.Scanner;
 
-public class InputUtils {
+public class Console {
 
     // Converts a string input to an integer
     public static int stringToInt(String input) {
