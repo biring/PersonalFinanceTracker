@@ -15,7 +15,7 @@ public class BaseViewTest {
     public void testDisplayMenu() {
         // Arrange
         Scanner mockScanner = new Scanner(System.in);
-        BaseView baseView = new BaseView(mockScanner) {
+        BaseClass baseView = new BaseClass(mockScanner) {
         };  // Anonymous class to instantiate BaseView
         String[] menuOptions = {"Option 1", "Option 2", "Option 3"};
 
@@ -43,7 +43,7 @@ public class BaseViewTest {
         String simulatedUserInput = "2\n";  // Simulating user input '2'
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
         Scanner mockScanner = new Scanner(inputStream);
-        BaseView baseView = new BaseView(mockScanner) {
+        BaseClass baseView = new BaseClass(mockScanner) {
         };  // Anonymous class to instantiate BaseView
         String message = "Please select an option:";
         String[] menuOptions = {"Option 1", "Option 2", "Option 3"};
@@ -62,7 +62,7 @@ public class BaseViewTest {
         String simulatedUserInput = "5\n2\n";  // Simulating invalid '5' followed by valid '2'
         ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
         Scanner mockScanner = new Scanner(inputStream);
-        BaseView baseView = new BaseView(mockScanner) {
+        BaseClass baseView = new BaseClass(mockScanner) {
         };  // Anonymous class to instantiate BaseView
         String message = "Please select an option:";
         String[] menuOptions = {"Option 1", "Option 2", "Option 3"};
@@ -82,7 +82,7 @@ public class BaseViewTest {
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        BaseView baseView = new BaseView(new Scanner(System.in)) {
+        BaseClass baseView = new BaseClass(new Scanner(System.in)) {
         };  // Anonymous subclass to access protected method
         String message = "Hello, World!";
 
@@ -104,7 +104,7 @@ public class BaseViewTest {
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        BaseView baseView = new BaseView(new Scanner(System.in)) {
+        BaseClass baseView = new BaseClass(new Scanner(System.in)) {
         };  // Anonymous subclass to access protected method
         String message = "Hello, World!";
 
@@ -127,7 +127,7 @@ public class BaseViewTest {
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        BaseView baseView = new BaseView(new Scanner(System.in)) {
+        BaseClass baseView = new BaseClass(new Scanner(System.in)) {
         };  // Anonymous subclass to access protected methods
 
         // Test printMessage
@@ -157,7 +157,7 @@ public class BaseViewTest {
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        BaseView baseView = new BaseView(new Scanner(System.in)) {};  // Anonymous subclass to access protected method
+        BaseClass baseView = new BaseClass(new Scanner(System.in)) {};  // Anonymous subclass to access protected method
 
         // Edge case: empty string
         baseView.printMessage("");
@@ -179,7 +179,7 @@ public class BaseViewTest {
         PrintStream originalSystemOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        BaseView baseView = new BaseView(new Scanner(System.in)) {};  // Anonymous subclass to access protected method
+        BaseClass baseView = new BaseClass(new Scanner(System.in)) {};  // Anonymous subclass to access protected method
 
         // Edge case: special characters
         String specialChars = "Hello\nWorld\t!";
