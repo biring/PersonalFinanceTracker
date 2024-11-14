@@ -2,11 +2,11 @@ package view;
 
 import java.util.Scanner;
 
-public class MainView extends BaseView {
+public class MainView extends BaseClass {
 
     public MainView(Scanner scanner) {
         super(scanner);
     }
 
-    // You can add any MainView-specific behavior here if necessary
+    // You can add any view-specific behavior here if necessary
 }
