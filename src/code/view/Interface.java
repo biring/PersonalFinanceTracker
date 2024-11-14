@@ -1,6 +1,6 @@
 package view;
 
-public interface ViewInterface {
+public interface Interface {
     // Method to display the main menu options
     void displayMenu(String[] menuOptions);
 
