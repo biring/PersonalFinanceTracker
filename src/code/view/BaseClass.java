@@ -32,6 +32,19 @@ public class BaseClass implements Interface {
         }
     }
 
+    @Override
+    public final String promptForStringInput(String message) {
+        while (true) {
+            printMessage(message + ": ");
+            String input = Console.getInput(scanner);
+            if (input.isBlank()) {
+                printMessageLine("Input cannot be blank.");
+            } else {
+                return input;
+            }
+        }
+    }
+
     protected void printMessage(String message) {
         System.out.print(message);
     }
