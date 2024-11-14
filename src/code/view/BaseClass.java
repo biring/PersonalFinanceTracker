@@ -1,7 +1,7 @@
 package view;
 
 import java.util.Scanner;
-import utils.InputUtils;
+import utility.Console;
 
 public class BaseClass implements Interface {
     protected Scanner scanner;
@@ -14,7 +14,7 @@ public class BaseClass implements Interface {
     @Override
     public void displayMenu(String[] menuOptions) {
         this.menuOptionMax = menuOptions.length;
-        String formattedMenu = InputUtils.formatList(menuOptions);
+        String formattedMenu = Console.formatList(menuOptions);
         printMessageLine(formattedMenu);
     }
 
@@ -22,9 +22,9 @@ public class BaseClass implements Interface {
     public int promptForMenuSelection(String message) {
         while (true) {
             printMessage(message);
-            String input = InputUtils.getInput(scanner);
-            int selection = InputUtils.stringToInt(input);
-            if (InputUtils.isValidSelection(selection, menuOptionMax)) {
+            String input = Console.getInput(scanner);
+            int selection = Console.stringToInt(input);
+            if (Console.isValidSelection(selection, menuOptionMax)) {
                 return selection;
             } else {
                 printMessageLine("Invalid selection. Please enter a number between 1 and " + menuOptionMax);
