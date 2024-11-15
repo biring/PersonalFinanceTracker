@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class AccountController extends BaseClass<AccountView> {
     private final AccountService accountService = new AccountService();
-    private final String[] menuOptions = {"Create", "Modify", "View", "Delete", "Exit"};
-    private final int EXIT_OPTION = menuOptions.length;
 
     public AccountController(Scanner scanner) {
         super(scanner, new AccountView(scanner));
@@ -16,40 +14,40 @@ public class AccountController extends BaseClass<AccountView> {
 
     // Method to start the application flow
     public void run() {
-        int selection;
+        enumMenuOptions selectedOption;
         do {
-            view.displayMenu(menuOptions);
-            selection = view.promptForMenuSelection("Enter your choice: ");
-            switch (selection) {
-                case 1:
+            selectedOption = view.promptForEnumMenuSelection(enumMenuOptions.class);
+            switch (selectedOption) {
+                case CREATE:
                     createAccount();
                     break;
-                case 2:
+                case MODIFY:
                     System.out.println("Modify");
                     break;
-                case 3:
+                case VIEW:
                     System.out.println("View");
                     break;
-                case 4:
+                case DELETE:
                     System.out.println("Delete");
                     break;
-                case 5:
+                case EXIT:
                     System.out.println("Exit");
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value for account menu selection: " + selection);
+                    throw new IllegalStateException("Invalid value for selection.");
             }
-        } while (selection != EXIT_OPTION);
+        }
+        while (selectedOption != enumMenuOptions.EXIT);
     }
 
     private void createAccount() {
-        String accountName = getValidAccountName();
+        String accountName = getAccountName();
         String accountType = getAccountType();
         boolean isAccountCreated = accountService.createAccount(accountName, accountType);
         view.showAccountCreationResult(isAccountCreated);
     }
 
-    private String getValidAccountName() {
+    private String getAccountName() {
         boolean isAccountNameValid;
         String accountName;
         do {
@@ -63,5 +61,24 @@ public class AccountController extends BaseClass<AccountView> {
     private String getAccountType() {
         String[] accountTypes = accountService.getAccountTypes();
         return view.promptForAccountTypeSelection(accountTypes);
+    }
+
+    private enum enumMenuOptions implements MenuOption {
+        CREATE("Create Account"),
+        MODIFY("Modify Account"),
+        VIEW("View Account"),
+        DELETE("Delete Account"),
+        EXIT("Exit");
+
+        private final String text;
+
+        enumMenuOptions(String text) {
+            this.text = text;
+        }
+
+        @Override
+        public String getText() {
+            return text;
+        }
     }
 }
