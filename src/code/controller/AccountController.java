@@ -1,10 +1,12 @@
 package controller;
 
+import service.AccountService;
 import view.AccountView;
 
 import java.util.Scanner;
 
 public class AccountController extends BaseClass<AccountView> {
+    private final AccountService accountService = new AccountService();
     private final String[] menuOptions = {"Create", "Modify", "View", "Delete", "Exit"};
     private final int EXIT_OPTION = menuOptions.length;
 
@@ -20,7 +22,7 @@ public class AccountController extends BaseClass<AccountView> {
             selection = view.promptForMenuSelection("Enter your choice: ");
             switch (selection) {
                 case 1:
-                    System.out.println("Create");
+                    createAccount();
                     break;
                 case 2:
                     System.out.println("Modify");
@@ -38,5 +40,28 @@ public class AccountController extends BaseClass<AccountView> {
                     throw new IllegalStateException("Unexpected value for account menu selection: " + selection);
             }
         } while (selection != EXIT_OPTION);
+    }
+
+    private void createAccount() {
+        String accountName = getValidAccountName();
+        String accountType = getAccountType();
+        boolean isAccountCreated = accountService.createAccount(accountName, accountType);
+        view.showAccountCreationResult(isAccountCreated);
+    }
+
+    private String getValidAccountName() {
+        boolean isAccountNameValid;
+        String accountName;
+        do {
+            accountName = view.promptForAccountName();
+            isAccountNameValid = accountService.isAccountNameValid(accountName);
+            view.showAccountValidResult(isAccountNameValid);
+        } while (!isAccountNameValid);
+        return accountName;
+    }
+
+    private String getAccountType() {
+        String[] accountTypes = accountService.getAccountTypes();
+        return view.promptForAccountTypeSelection(accountTypes);
     }
 }
