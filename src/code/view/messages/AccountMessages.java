@@ -8,6 +8,7 @@ public class AccountMessages {
     }
 
     // PROMPT_* for input prompts or messages requesting user action
+    public static final String PROMPT_MENU_SELECTION = "Enter your choice: ";
     public static final String PROMPT_ACCOUNT_NAME = "Enter account name: ";
     public static final String PROMPT_ACCOUNT_TYPE = "Select account type: ";
 
