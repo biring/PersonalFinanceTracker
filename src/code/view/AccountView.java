@@ -51,5 +51,13 @@ public class AccountView extends BaseClass {
             printMessageLine(INFO_ACCOUNT_CREATION_FAILED);
         }
     }
+
+    public void showAccountDeletionResult(boolean success) {
+        if (success) {
+            printMessageLine(INFO_ACCOUNT_DELETED_SUCCESS);
+        } else {
+            printMessageLine(WARNING_ACCOUNT_DELETION_FAILED);
+        }
+    }
 }
 
