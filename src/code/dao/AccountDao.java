@@ -20,9 +20,9 @@ public class AccountDao {
     }
 
     // Create a new account
-    public void addAccount(int id, String name) {
+    public boolean addAccount(int id, String name) {
         AccountModel account = new AccountModel(id, name);
-        accounts.add(account);
+        return accounts.add(account);
     }
 
     public boolean updateAccount(int id, String name) {
