@@ -13,6 +13,10 @@ public class AccountModel extends BaseModel {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Account: Id=" + super.id + ", Name=" + this.name;
