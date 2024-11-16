@@ -46,9 +46,9 @@ public class AccountView extends BaseClass {
 
     public void showAccountCreationResult(boolean success) {
         if (success) {
-            printMessageLine(INFO_ACCOUNT_CREATED_SUCCESS);
+            printMessageLine(INFO_ACCOUNT_CREATION_SUCCESS);
         } else {
-            printMessageLine(INFO_ACCOUNT_CREATION_FAILED);
+            printMessageLine(WARNING_ACCOUNT_CREATION_FAILED);
         }
     }
 
