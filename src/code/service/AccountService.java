@@ -14,17 +14,10 @@ public class AccountService {
     public AccountService() {
     }
 
-    public boolean isAccountNameValid(String accountName) {
-        return (accountName != null)
-                && (!accountName.isEmpty())
-                && (!accountDao.isAccountNameExists(accountName))
-                && (accountName.length() >= MIN_ACCOUNT_NAME_LENGTH)
-                && (accountName.length() <= MAX_ACCOUNT_NAME_LENGTH);
-    }
 
-    public boolean createAccount(String name) {
+    public boolean createAccount(String name, int idx) {
         int id = accountDao.getNextID();
-        return accountDao.addAccount(id, name);
+        return accountDao.addAccount(id, name, idx);
     }
 
     public boolean updateAccount(int id, String name) {
@@ -37,8 +30,30 @@ public class AccountService {
 
     public List<String> getAllAccountsAsString() {
         return accountDao.getAllAccounts().stream()
-                .map(account -> "[" + account.getID() + "] " + account.getName())
+                .map(account -> "[" + account.getID() + "] " + account.getName()+ " (" + account.getAccountType() + ")")
                 .toList();
+    }
+
+    public List<String> getAccountType() {
+        List<String> accountTypesWithIndex = new java.util.ArrayList<>(List.of());
+
+        List<String> accountTypes = accountDao.getAccountTypes();
+            for (int i = 0; i < accountTypes.size(); i++) {
+                accountTypesWithIndex.add("[" + (i + 1) + "] " + accountTypes.get(i));
+        }
+        return accountTypesWithIndex;
+    }
+
+    public boolean isAccountNameValid(String accountName) {
+        return (accountName != null)
+                && (!accountName.isEmpty())
+                && (!accountDao.isAccountNameExists(accountName))
+                && (accountName.length() >= MIN_ACCOUNT_NAME_LENGTH)
+                && (accountName.length() <= MAX_ACCOUNT_NAME_LENGTH);
+    }
+
+    public boolean isAccountTypeValid(int idx) {
+        return accountDao.isAccountTypeValid(idx);
     }
 }
 
