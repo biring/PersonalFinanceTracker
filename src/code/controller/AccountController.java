@@ -22,7 +22,7 @@ public class AccountController extends BaseClass<AccountView> {
                     createAccount();
                     break;
                 case MODIFY:
-                    System.out.println("Modify");
+                    modifyAccount();
                     break;
                 case VIEW:
                     viewAccounts();
@@ -43,6 +43,12 @@ public class AccountController extends BaseClass<AccountView> {
     private void createAccount() {
         String accountName = getAccountName();
         accountService.createAccount(accountName);
+    }
+
+    private void modifyAccount() {
+        int accountId = view.promptForAccountId(accountService.getAllAccountsAsString());
+        String accountName = getAccountName();
+        accountService.updateAccount(accountId, accountName);
     }
 
     private void viewAccounts() {
