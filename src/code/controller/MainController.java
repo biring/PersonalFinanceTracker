@@ -5,8 +5,6 @@ import view.MainView;
 import java.util.Scanner;
 
 public class MainController extends BaseClass<MainView> {
-    private final String[] mainMenuOption = {"Account", "Category", "Budget", "Link", "Transaction", "Report", "Exit"};
-    private final int EXIT_OPTION = mainMenuOption.length;
 
     private AccountController accountController;
     private CategoryController categoryController;
@@ -34,34 +32,54 @@ public class MainController extends BaseClass<MainView> {
     // Method to start the application flow
     @Override
     public void run() {
-        int selection = 0;
+        MenuOptions selectedOption;
         do {
-            view.displayMenu(mainMenuOption);
-            selection = view.promptForMenuSelection("Enter your choice: ");
-            switch (selection) {
-                case 1:
+            selectedOption = view.promptForEnumMenuSelection(MenuOptions.class);
+            switch (selectedOption) {
+                case ACCOUNT:
                     accountController.run();
                     break;
-                case 2:
+                case CATEGORY:
                     categoryController.run();
                     break;
-                case 3:
+                case BUDGET:
                     budgetController.run();
                     break;
-                case 4:
+                case LINK:
                     linkController.run();
                     break;
-                case 5:
+                case TRANSACTION:
                     transactionController.run();
                     break;
-                case 6:
+                case REPORT:
                     reportController.run();
                     break;
-                case 7:
+                case EXIT:
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value for main menu selection: " + selection);
+                    throw new IllegalStateException("Invalid value for selection.");
             }
-        } while (selection != EXIT_OPTION);
+        } while (selectedOption != MenuOptions.EXIT);
+    }
+
+    private enum MenuOptions implements MenuOption {
+        ACCOUNT("Account"),
+        CATEGORY("Category"),
+        BUDGET("Budget"),
+        LINK("Link"),
+        TRANSACTION("Transaction"),
+        REPORT("Report"),
+        EXIT("Exit Application");
+
+        private final String text;
+
+        MenuOptions(String text) {
+            this.text = text;
+        }
+
+        @Override
+        public String getText() {
+            return text;
+        }
     }
 }
