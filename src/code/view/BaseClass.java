@@ -41,4 +41,12 @@ public class BaseClass implements Interface {
     protected final void displayTableData(List<String> data, String title) {
         tableHelper.displayTable(data, title);
     }
+
+    protected final void displaySuccessFailureMessage(boolean result, String success, String failure) {
+        if (result) {
+            Console.printMessage(success);
+        } else {
+            Console.printMessage(failure);
+        }
+    }
 }
