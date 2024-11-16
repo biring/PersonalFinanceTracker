@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuOption;
+import utility.Console;
 
 import java.util.List;
 import java.util.Scanner;
@@ -18,48 +19,46 @@ public class AccountView extends BaseClass {
     }
 
     public String promptForAccountName() {
-        return promptForStringInput(PROMPT_ACCOUNT_NAME);
+        return super.promptForStringInput(PROMPT_ACCOUNT_NAME);
     }
 
     public int promptForAccountId(List<String> accounts) {
-        showAccounts(accounts);
-        return promptForIntInput(PROMPT_ACCOUNT_ID);
+        return super.getTableSelection(accounts, TITLE_ACCOUNT_TABLE, PROMPT_ACCOUNT_ID);
     }
 
     public void showAccounts(List<String> accounts) {
-        printTable(TITLE_ACCOUNT_TABLE, accounts);
+        super.displayTableData(accounts, TITLE_ACCOUNT_TABLE);
     }
-
 
     public void showAccountValidResult(boolean success) {
         if (success) {
-            printMessageLine(INFO_ACCOUNT_NAME_VALID);
+            Console.printMessage(INFO_ACCOUNT_NAME_VALID);
         } else {
-            printMessageLine(INFO_ACCOUNT_NAME_INVALID);
+            Console.printMessage(INFO_ACCOUNT_NAME_INVALID);
         }
     }
 
     public void showAccountCreationResult(boolean success) {
         if (success) {
-            printMessageLine(INFO_ACCOUNT_CREATION_SUCCESS);
+            Console.printMessage(INFO_ACCOUNT_CREATION_SUCCESS);
         } else {
-            printMessageLine(WARNING_ACCOUNT_CREATION_FAILED);
+            Console.printMessage(WARNING_ACCOUNT_CREATION_FAILED);
         }
     }
 
     public void showAccountModificationResult(boolean success) {
         if (success) {
-            printMessageLine(INFO_ACCOUNT_MODIFIED_SUCCESS);
+            Console.printMessage(INFO_ACCOUNT_MODIFIED_SUCCESS);
         } else {
-            printMessageLine(WARNING_ACCOUNT_MODIFICATION_FAILED);
+            Console.printMessage(WARNING_ACCOUNT_MODIFICATION_FAILED);
         }
     }
 
     public void showAccountDeletionResult(boolean success) {
         if (success) {
-            printMessageLine(INFO_ACCOUNT_DELETED_SUCCESS);
+            Console.printMessage(INFO_ACCOUNT_DELETED_SUCCESS);
         } else {
-            printMessageLine(WARNING_ACCOUNT_DELETION_FAILED);
+            Console.printMessage(WARNING_ACCOUNT_DELETION_FAILED);
         }
     }
 }
