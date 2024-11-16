@@ -1,17 +1,15 @@
 package view;
 
 import controller.MenuOption;
-import utility.Console;
 
 import java.util.List;
-import java.util.Scanner;
 
 import static view.messages.AccountMessages.*;
 
 public class AccountView extends BaseClass {
 
-    public AccountView(Scanner scanner) {
-        super(scanner);
+    public AccountView() {
+        super();
     }
 
     public <T extends Enum<T> & MenuOption> T promptForEnumMenuSelection(Class<T> enumType) {

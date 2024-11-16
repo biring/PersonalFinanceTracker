@@ -11,10 +11,10 @@ public class BaseClass implements Interface {
     protected MenuHelper menuHelper;
     protected TableHelper tableHelper;
 
-    public BaseClass(Scanner scanner) {
-        this.scanner = scanner;
-        this.menuHelper = new MenuHelper(scanner);
-        this.tableHelper = new TableHelper(scanner);
+    public BaseClass() {
+        this.scanner = new Scanner(System.in);
+        this.menuHelper = new MenuHelper(this.scanner);
+        this.tableHelper = new TableHelper(this.scanner);
     }
 
     @Override

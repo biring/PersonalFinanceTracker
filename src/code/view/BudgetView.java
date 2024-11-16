@@ -1,10 +1,8 @@
 package view;
 
-import java.util.Scanner;
-
 public class BudgetView extends BaseClass {
-    public BudgetView(Scanner scanner) {
-        super(scanner);
+    public BudgetView() {
+        super();
     }
 
     // You may add any view-specific behavior here if necessary
