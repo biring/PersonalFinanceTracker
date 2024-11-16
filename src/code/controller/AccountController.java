@@ -42,7 +42,8 @@ public class AccountController extends BaseClass<AccountView> {
 
     private void createAccount() {
         String accountName = getAccountName();
-        accountService.createAccount(accountName);
+        boolean success = accountService.createAccount(accountName);
+        view.showAccountCreationResult(success);
     }
 
     private void modifyAccount() {
