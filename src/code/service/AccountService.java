@@ -20,8 +20,8 @@ public class AccountService {
         accountDao.addAccount(id, name);
     }
 
-    public void updateAccount(int id, String name) {
-        accountDao.updateAccount(id, name);
+    public boolean updateAccount(int id, String name) {
+        return accountDao.updateAccount(id, name);
     }
 
     public boolean deleteAccount(int id) {
