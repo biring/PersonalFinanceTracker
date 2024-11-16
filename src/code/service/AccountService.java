@@ -15,9 +15,9 @@ public class AccountService {
         return accountName != null && !accountName.isEmpty();
     }
 
-    public void createAccount(String name) {
+    public boolean createAccount(String name) {
         int id = accountDao.getNextID();
-        accountDao.addAccount(id, name);
+        return accountDao.addAccount(id, name);
     }
 
     public boolean updateAccount(int id, String name) {
