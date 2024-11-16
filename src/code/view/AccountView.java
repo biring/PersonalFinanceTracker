@@ -13,7 +13,6 @@ public class AccountView extends BaseClass {
         super(scanner);
     }
 
-
     public <T extends Enum<T> & MenuOption> T promptForEnumMenuSelection(Class<T> enumType) {
         return super.getEnumMenuSelection(enumType, INFO_ACCOUNT_MENU_TITLE, PROMPT_MENU_SELECTION);
     }
@@ -28,9 +27,7 @@ public class AccountView extends BaseClass {
     }
 
     public void showAccounts(List<String> accounts) {
-        for(String account : accounts) {
-            printMessageLine(account);
-        }
+        printTable(INFO_ACCOUNT_TABLE_TITLE, accounts);
     }
 
     public String promptForAccountTypeSelection(String[] accountTypes) {
@@ -46,6 +43,7 @@ public class AccountView extends BaseClass {
             printMessageLine(INFO_ACCOUNT_NAME_INVALID);
         }
     }
+
     public void showAccountCreationResult(boolean success) {
         if (success) {
             printMessageLine(INFO_ACCOUNT_CREATED_SUCCESS);
