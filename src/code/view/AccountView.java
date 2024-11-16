@@ -52,6 +52,14 @@ public class AccountView extends BaseClass {
         }
     }
 
+    public void showAccountModificationResult(boolean success) {
+        if (success) {
+            printMessageLine(INFO_ACCOUNT_MODIFIED_SUCCESS);
+        } else {
+            printMessageLine(WARNING_ACCOUNT_MODIFICATION_FAILED);
+        }
+    }
+
     public void showAccountDeletionResult(boolean success) {
         if (success) {
             printMessageLine(INFO_ACCOUNT_DELETED_SUCCESS);
