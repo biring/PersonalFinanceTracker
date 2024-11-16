@@ -1,8 +1,12 @@
 package service;
 
+import dao.AccountDao;
+
+import java.util.List;
+
 public class AccountService {
 
-    private final String[] accountTypes = {"Credit", "Debit"};
+    private final AccountDao accountDao = new AccountDao();
 
     public AccountService() {
     }
@@ -11,12 +15,15 @@ public class AccountService {
         return accountName != null && !accountName.isEmpty();
     }
 
-    public String[] getAccountTypes() {
-        return accountTypes;
+    public void createAccount(String name) {
+        int id = accountDao.getNextID();
+        accountDao.addAccount(id, name);
     }
 
-    public boolean createAccount(String accountName, String accountType) {
-        //TODO: Implement account creation logic
-        return true;
+    public List<String> getAllAccountsAsString() {
+        return accountDao.getAllAccounts().stream()
+                .map(account -> "ID: " + account.getID() + ", Name: " + account.getName())
+                .toList();
     }
 }
+
