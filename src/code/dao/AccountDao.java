@@ -60,4 +60,14 @@ public class AccountDao {
         }
         return false;
     }
+
+    // Check if account name exists
+    public boolean isAccountNameExists(String name) {
+        for (AccountModel account : accounts) {
+            if (account.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
