@@ -25,7 +25,7 @@ public class AccountController extends BaseClass<AccountView> {
                     System.out.println("Modify");
                     break;
                 case VIEW:
-                    System.out.println("View");
+                    viewAccounts();
                     break;
                 case DELETE:
                     System.out.println("Delete");
@@ -42,10 +42,13 @@ public class AccountController extends BaseClass<AccountView> {
 
     private void createAccount() {
         String accountName = getAccountName();
-        String accountType = getAccountType();
-        boolean isAccountCreated = accountService.createAccount(accountName, accountType);
-        view.showAccountCreationResult(isAccountCreated);
+        accountService.createAccount(accountName);
     }
+
+    private void viewAccounts() {
+        view.showAccounts(accountService.getAllAccountsAsString());
+    }
+
 
     private String getAccountName() {
         boolean isAccountNameValid;
@@ -58,10 +61,6 @@ public class AccountController extends BaseClass<AccountView> {
         return accountName;
     }
 
-    private String getAccountType() {
-        String[] accountTypes = accountService.getAccountTypes();
-        return view.promptForAccountTypeSelection(accountTypes);
-    }
 
     private enum enumMenuOptions implements MenuOption {
         CREATE("Create Account"),
