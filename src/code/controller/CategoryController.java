@@ -2,11 +2,9 @@ package controller;
 
 import view.CategoryView;
 
-import java.util.Scanner;
-
 public class CategoryController extends BaseClass<CategoryView> {
-    public CategoryController(Scanner scanner) {
-        super(scanner, new CategoryView(scanner));
+    public CategoryController() {
+        super(new CategoryView());
     }
 
     // Method to start the application flow

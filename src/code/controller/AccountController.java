@@ -3,13 +3,11 @@ package controller;
 import service.AccountService;
 import view.AccountView;
 
-import java.util.Scanner;
-
 public class AccountController extends BaseClass<AccountView> {
     private final AccountService accountService = new AccountService();
 
-    public AccountController(Scanner scanner) {
-        super(scanner, new AccountView(scanner));
+    public AccountController() {
+        super(new AccountView());
     }
 
     // Method to start the application flow

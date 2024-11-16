@@ -16,10 +16,8 @@ public class Main {
         System.out.println("Personal Finance Tracker");
         System.out.println(Version.getVersion());
 
-        // Create a shared Scanner object to read user input
-        Scanner scanner = new Scanner(System.in);
         // Create an instance of MainController
-        MainController mainController = new MainController(scanner);
+        MainController mainController = new MainController();
 
         // Call a method on the controller to kick off the application logic
         mainController.start();

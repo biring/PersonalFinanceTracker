@@ -1,13 +1,10 @@
 package controller;
 
-import java.util.Scanner;
 
 public abstract class BaseClass<V> implements Interface {
-    protected final Scanner scanner;
     protected final V view;
 
-    public BaseClass(Scanner scanner, V view) {
-        this.scanner = scanner;
+    public BaseClass(V view) {
         this.view = view;
     }
 

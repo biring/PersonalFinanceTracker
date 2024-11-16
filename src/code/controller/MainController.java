@@ -2,8 +2,6 @@ package controller;
 
 import view.MainView;
 
-import java.util.Scanner;
-
 public class MainController extends BaseClass<MainView> {
 
     private AccountController accountController;
@@ -14,19 +12,19 @@ public class MainController extends BaseClass<MainView> {
     private ReportController reportController;
 
     // Constructor to initialize the shared Scanner object
-    public MainController(Scanner scanner) {
-        super(scanner, new MainView(scanner));
+    public MainController() {
+        super(new MainView());
     }
 
     // Method to initialize the application
     @Override
     public void start() {
-        this.accountController = new AccountController(scanner);
-        this.categoryController = new CategoryController(scanner);
-        this.budgetController = new BudgetController(scanner);
-        this.reportController = new ReportController(scanner);
-        this.transactionController = new TransactionController(scanner);
-        this.linkController = new LinkController(scanner);
+        this.accountController = new AccountController();
+        this.categoryController = new CategoryController();
+        this.budgetController = new BudgetController();
+        this.reportController = new ReportController();
+        this.transactionController = new TransactionController();
+        this.linkController = new LinkController();
     }
 
     // Method to start the application flow
