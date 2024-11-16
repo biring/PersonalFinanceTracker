@@ -20,9 +20,13 @@ public class AccountService {
         accountDao.addAccount(id, name);
     }
 
+    public void updateAccount(int id, String name) {
+        accountDao.updateAccount(id, name);
+    }
+
     public List<String> getAllAccountsAsString() {
         return accountDao.getAllAccounts().stream()
-                .map(account -> "ID: " + account.getID() + ", Name: " + account.getName())
+                .map(account -> "[" + account.getID() + "] " + account.getName())
                 .toList();
     }
 }
