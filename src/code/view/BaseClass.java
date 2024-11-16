@@ -37,7 +37,7 @@ public class BaseClass implements Interface {
     @Override
     public final String promptForStringInput(String message) {
         while (true) {
-            printMessage(message + ": ");
+            printMessage(message);
             String input = Console.getInput(scanner);
             if (input.isBlank()) {
                 printMessageLine("Input cannot be blank.");
@@ -61,6 +61,12 @@ public class BaseClass implements Interface {
         }
     }
 
+    @Override
+    public final void printMenuTitle(String title) {
+        String text = "\n==== " + title + " ====";
+        printMessageLine(text);
+    }
+
     protected void printMessage(String message) {
         System.out.print(message);
     }
@@ -69,7 +75,9 @@ public class BaseClass implements Interface {
         System.out.println(message);
     }
 
-    public final <T extends Enum<T> & MenuOption> T getEnumMenuSelection(Class<T> enumType, String message) {
+    public final <T extends Enum<T> & MenuOption> T getEnumMenuSelection(Class<T> enumType, String title, String message) {
+        printMenuTitle(title);
+
         // Get all enum constants
         T[] enumValues = enumType.getEnumConstants();
         // Convert enum to string array
