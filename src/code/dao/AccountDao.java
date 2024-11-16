@@ -26,6 +26,14 @@ public class AccountDao {
         accounts.add(account);
     }
 
+    public void updateAccount(int id, String name) {
+        for (AccountModel account : accounts) {
+            if (account.getID() == id) {
+                account.setName(name);
+            }
+        }
+    }
+
     // Retrieve all accounts
     public List<AccountModel> getAllAccounts() {
         return accounts;
