@@ -48,7 +48,8 @@ public class AccountController extends BaseClass<AccountView> {
     private void modifyAccount() {
         int accountId = view.promptForAccountId(accountService.getAllAccountsAsString());
         String accountName = getAccountName();
-        accountService.updateAccount(accountId, accountName);
+        boolean success = accountService.updateAccount(accountId, accountName);
+        view.showAccountModificationResult(success);
     }
 
     private void viewAccounts() {
