@@ -22,6 +22,11 @@ public class AccountView extends BaseClass {
         return promptForStringInput(PROMPT_ACCOUNT_NAME);
     }
 
+    public int promptForAccountId(List<String> accounts) {
+        showAccounts(accounts);
+        return promptForIntInput(PROMPT_ACCOUNT_ID);
+    }
+
     public void showAccounts(List<String> accounts) {
         for(String account : accounts) {
             printMessageLine(account);
