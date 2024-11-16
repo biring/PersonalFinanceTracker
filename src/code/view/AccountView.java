@@ -31,35 +31,19 @@ public class AccountView extends BaseClass {
     }
 
     public void showAccountValidResult(boolean success) {
-        if (success) {
-            Console.printMessage(INFO_ACCOUNT_NAME_VALID);
-        } else {
-            Console.printMessage(INFO_ACCOUNT_NAME_INVALID);
-        }
+        super.displaySuccessFailureMessage(success, INFO_ACCOUNT_NAME_VALID, INFO_ACCOUNT_NAME_INVALID);
     }
 
     public void showAccountCreationResult(boolean success) {
-        if (success) {
-            Console.printMessage(INFO_ACCOUNT_CREATION_SUCCESS);
-        } else {
-            Console.printMessage(WARNING_ACCOUNT_CREATION_FAILED);
-        }
+        super.displaySuccessFailureMessage(success, INFO_ACCOUNT_CREATION_SUCCESS, WARNING_ACCOUNT_CREATION_FAILED);
     }
 
     public void showAccountModificationResult(boolean success) {
-        if (success) {
-            Console.printMessage(INFO_ACCOUNT_MODIFIED_SUCCESS);
-        } else {
-            Console.printMessage(WARNING_ACCOUNT_MODIFICATION_FAILED);
-        }
+        super.displaySuccessFailureMessage(success, INFO_ACCOUNT_MODIFIED_SUCCESS, WARNING_ACCOUNT_MODIFICATION_FAILED);
     }
 
     public void showAccountDeletionResult(boolean success) {
-        if (success) {
-            Console.printMessage(INFO_ACCOUNT_DELETED_SUCCESS);
-        } else {
-            Console.printMessage(WARNING_ACCOUNT_DELETION_FAILED);
-        }
+        super.displaySuccessFailureMessage(success, INFO_ACCOUNT_DELETED_SUCCESS, WARNING_ACCOUNT_DELETION_FAILED);
     }
 }
 
