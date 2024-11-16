@@ -22,6 +22,10 @@ public class AccountMessages {
     public static final String INFO_ACCOUNT_NAME_VALID = "Account name is valid.";
     public static final String INFO_ACCOUNT_CREATED_SUCCESS = "Account created successfully.";
     public static final String INFO_ACCOUNT_CREATION_FAILED = "Account creation failed.";
+    public static final String INFO_ACCOUNT_DELETED_SUCCESS = "Account deleted successfully.";
+
+    // WARNING_* for warning messages
+    public static final String WARNING_ACCOUNT_DELETION_FAILED = "Account deletion failed.";
 
     // ERROR_* for error messages
 
