@@ -24,12 +24,20 @@ public class AccountView extends BaseClass {
         return super.getTableSelection(accounts, TITLE_ACCOUNT_TABLE, PROMPT_ACCOUNT_ID);
     }
 
+    public int promptForAccountTypeIndex(List<String> accountType) {
+        return super.getTableSelection(accountType, TITLE_ACCOUNT_TYPE, PROMPT_ACCOUNT_TYPE);
+    }
+
     public void showAccounts(List<String> accounts) {
         super.displayTableData(accounts, TITLE_ACCOUNT_TABLE);
     }
 
     public void showAccountValidResult(boolean success) {
         super.displaySuccessFailureMessage(success, INFO_ACCOUNT_NAME_VALID, INFO_ACCOUNT_NAME_INVALID);
+    }
+
+    public void showAccountTypeValidResult(boolean success) {
+        super.displaySuccessFailureMessage(success, INFO_ACCOUNT_TYPE_VALID, WARNING_ACCOUNT_TYPE_INVALID);
     }
 
     public void showAccountCreationResult(boolean success) {
