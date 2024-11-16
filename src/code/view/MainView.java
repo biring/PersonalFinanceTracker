@@ -13,6 +13,6 @@ public class MainView extends BaseClass {
     }
 
     public <T extends Enum<T> & MenuOption> T promptForEnumMenuSelection(Class<T> enumType) {
-        return super.getEnumMenuSelection(enumType, INFO_MAIN_MENU_TITLE, PROMPT_MENU_SELECTION);
+        return super.getEnumMenuSelection(enumType, TITLE_MAIN_MENU, PROMPT_MENU_SELECTION);
     }
 }

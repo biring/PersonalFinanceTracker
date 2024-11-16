@@ -14,7 +14,7 @@ public class AccountView extends BaseClass {
     }
 
     public <T extends Enum<T> & MenuOption> T promptForEnumMenuSelection(Class<T> enumType) {
-        return super.getEnumMenuSelection(enumType, INFO_ACCOUNT_MENU_TITLE, PROMPT_MENU_SELECTION);
+        return super.getEnumMenuSelection(enumType, TITLE_ACCOUNT_MENU, PROMPT_MENU_SELECTION);
     }
 
     public String promptForAccountName() {
@@ -27,7 +27,7 @@ public class AccountView extends BaseClass {
     }
 
     public void showAccounts(List<String> accounts) {
-        printTable(INFO_ACCOUNT_TABLE_TITLE, accounts);
+        printTable(TITLE_ACCOUNT_TABLE, accounts);
     }
 
     public String promptForAccountTypeSelection(String[] accountTypes) {
