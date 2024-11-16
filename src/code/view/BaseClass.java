@@ -47,6 +47,20 @@ public class BaseClass implements Interface {
         }
     }
 
+    @Override
+    public final int promptForIntInput(String message) {
+        while (true) {
+            printMessage(message);
+            String input = Console.getInput(scanner);
+            int selection = Console.stringToInt(input);
+            if (selection > 0) {
+                return selection;
+            } else {
+                printMessageLine("Invalid selection. Please try again.");
+            }
+        }
+    }
+
     protected void printMessage(String message) {
         System.out.print(message);
     }
