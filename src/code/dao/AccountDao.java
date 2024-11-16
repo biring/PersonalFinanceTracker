@@ -25,12 +25,14 @@ public class AccountDao {
         accounts.add(account);
     }
 
-    public void updateAccount(int id, String name) {
+    public boolean updateAccount(int id, String name) {
         for (AccountModel account : accounts) {
             if (account.getID() == id) {
                 account.setName(name);
+                return true;
             }
         }
+        return false;
     }
 
     // Retrieve all accounts
