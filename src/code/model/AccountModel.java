@@ -6,7 +6,6 @@ public class AccountModel extends BaseModel {
     public AccountModel(int id, String name) {
         super(id);
         this.name = name;
-        System.out.println(this);
     }
 
     public String getName() {
