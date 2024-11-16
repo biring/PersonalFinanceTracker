@@ -28,7 +28,7 @@ public class AccountController extends BaseClass<AccountView> {
                     viewAccounts();
                     break;
                 case DELETE:
-                    System.out.println("Delete");
+                    deleteAccount();
                     break;
                 case EXIT:
                     System.out.println("Exit");
@@ -53,6 +53,12 @@ public class AccountController extends BaseClass<AccountView> {
 
     private void viewAccounts() {
         view.showAccounts(accountService.getAllAccountsAsString());
+    }
+
+    private void deleteAccount() {
+        int id = view.promptForAccountId(accountService.getAllAccountsAsString());
+        boolean success = accountService.deleteAccount(id);
+        view.showAccountDeletionResult(success);
     }
 
 
