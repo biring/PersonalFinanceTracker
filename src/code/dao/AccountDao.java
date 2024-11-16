@@ -1,7 +1,6 @@
 package dao;
 
 import model.AccountModel;
-import model.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,5 +36,16 @@ public class AccountDao {
     // Retrieve all accounts
     public List<AccountModel> getAllAccounts() {
         return accounts;
+    }
+
+    // delete an account
+    public boolean deleteAccount(int id) {
+        for (AccountModel account : accounts) {
+            if (account.getID() == id) {
+                accounts.remove(account);
+                return true;
+            }
+        }
+        return false;
     }
 }
