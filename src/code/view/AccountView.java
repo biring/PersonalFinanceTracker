@@ -30,11 +30,6 @@ public class AccountView extends BaseClass {
         printTable(TITLE_ACCOUNT_TABLE, accounts);
     }
 
-    public String promptForAccountTypeSelection(String[] accountTypes) {
-        displayMenu(accountTypes);
-        int selection = promptForMenuSelection(PROMPT_ACCOUNT_TYPE);
-        return accountTypes[selection - 1];
-    }
 
     public void showAccountValidResult(boolean success) {
         if (success) {
