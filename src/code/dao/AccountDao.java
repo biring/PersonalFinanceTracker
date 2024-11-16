@@ -7,22 +7,32 @@ import java.util.List;
 
 public class AccountDao {
     private final List<AccountModel> accounts = new ArrayList<>();
+    private int nextID = 0;
 
     // get the next available ID
     public int getNextID() {
-        int nextID = 0;
-        for (AccountModel account : accounts) {
-            if (nextID <= account.getID()) {
-                nextID = account.getID();
+        if (this.nextID == 0) {
+            for (AccountModel account : accounts) {
+                if (this.nextID <= account.getID()) {
+                    this.nextID = account.getID();
+                }
             }
+            this.nextID ++;
         }
-        return nextID + 1;
+        return this.nextID;
     }
 
     // Create a new account
     public boolean addAccount(int id, String name) {
         AccountModel account = new AccountModel(id, name);
-        return accounts.add(account);
+        accounts.add(account);
+        this.nextID ++;
+        for (AccountModel ac : accounts) {
+            if (ac.getID() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean updateAccount(int id, String name) {
