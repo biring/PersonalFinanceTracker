@@ -67,6 +67,12 @@ public class BaseClass implements Interface {
         printMessageLine(text);
     }
 
+    @Override
+    public final void printTableTitle(String title) {
+        String text = "\n---" + title + "---";
+        printMessageLine(text);
+    }
+
     protected void printMessage(String message) {
         System.out.print(message);
     }
