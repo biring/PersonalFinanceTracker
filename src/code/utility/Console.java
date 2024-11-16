@@ -4,35 +4,27 @@ import java.util.Scanner;
 
 public class Console {
 
-    // Converts a string input to an integer
-    public static int stringToInt(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
-
-    // Reads user input from the console using a given scanner
-    public static String getInput(Scanner scanner) {
+    public static String getStringInput(Scanner scanner) {
         return scanner.nextLine();
     }
 
-    // Validates if the selection is within the valid range
-    public static boolean isValidSelection(int selection, int menuOptionMax) {
-        return selection > 0 && selection <= menuOptionMax;
+    public static int getIntInput(Scanner scanner) {
+        return stringToInt(getStringInput(scanner));
     }
 
-    // Formats a list of menu options into a numbered list
-    public static String formatList(String[] items) {
-        if (items == null) {
-            throw new IllegalArgumentException("List is null");
-        }
+    public static void printPrompt(String message) {
+        System.out.print(message);
+    }
 
-        StringBuilder formattedString = new StringBuilder();
-        for (int i = 0; i < items.length; i++) {
-            formattedString.append("[").append(i + 1).append("] ").append(items[i]).append("\n");
+    public static void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    private static int stringToInt(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return -1; // Invalid input
         }
-        return formattedString.toString().trim();
     }
 }
