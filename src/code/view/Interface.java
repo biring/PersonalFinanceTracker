@@ -12,4 +12,7 @@ public interface Interface {
 
     // Method to prompt the user for an integer input
     int promptForIntInput(String message);
+
+    // Method to print menu title
+    void printMenuTitle(String title);
 }
