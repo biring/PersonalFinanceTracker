@@ -24,6 +24,10 @@ public class AccountService {
         accountDao.updateAccount(id, name);
     }
 
+    public boolean deleteAccount(int id) {
+        return accountDao.deleteAccount(id);
+    }
+
     public List<String> getAllAccountsAsString() {
         return accountDao.getAllAccounts().stream()
                 .map(account -> "[" + account.getID() + "] " + account.getName())
