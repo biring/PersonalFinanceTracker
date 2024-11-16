@@ -2,6 +2,7 @@ package view;
 
 import controller.MenuOption;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static view.messages.AccountMessages.*;
@@ -19,6 +20,12 @@ public class AccountView extends BaseClass {
 
     public String promptForAccountName() {
         return promptForStringInput(PROMPT_ACCOUNT_NAME);
+    }
+
+    public void showAccounts(List<String> accounts) {
+        for(String account : accounts) {
+            printMessageLine(account);
+        }
     }
 
     public String promptForAccountTypeSelection(String[] accountTypes) {
