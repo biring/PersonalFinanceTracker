@@ -40,7 +40,8 @@ public class AccountController extends BaseClass<AccountView> {
 
     private void createAccount() {
         String accountName = getAccountName();
-        boolean success = accountService.createAccount(accountName);
+        int accountIndex = getAccountType();
+        boolean success = accountService.createAccount(accountName, accountIndex);
         view.showAccountCreationResult(success);
     }
 
@@ -71,6 +72,17 @@ public class AccountController extends BaseClass<AccountView> {
             view.showAccountValidResult(isAccountNameValid);
         } while (!isAccountNameValid);
         return accountName;
+    }
+
+    private int getAccountType() {
+        boolean isAccountTypeValid;
+        int accountTypeIndex;
+        do {
+            accountTypeIndex = view.promptForAccountTypeIndex(accountService.getAccountType());
+            isAccountTypeValid = accountService.isAccountTypeValid(accountTypeIndex);
+            view.showAccountTypeValidResult(isAccountTypeValid);
+        } while (!isAccountTypeValid);
+        return accountTypeIndex;
     }
 
 
