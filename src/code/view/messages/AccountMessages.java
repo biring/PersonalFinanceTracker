@@ -14,6 +14,7 @@ public class AccountMessages {
     public static final String PROMPT_ACCOUNT_TYPE = "Select account type: ";
 
     // INFO_* for general information messages
+    public static final String INFO_ACCOUNT_MENU_TITLE = "Account Menu";
     public static final String INFO_ACCOUNT_NAME_INVALID = "Account name is invalid.";
     public static final String INFO_ACCOUNT_NAME_VALID = "Account name is valid.";
     public static final String INFO_ACCOUNT_CREATED_SUCCESS = "Account created successfully.";

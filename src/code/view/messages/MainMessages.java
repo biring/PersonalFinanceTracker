@@ -11,6 +11,7 @@ public class MainMessages {
     public static final String PROMPT_MENU_SELECTION = "Enter your choice: ";
 
     // INFO_* for general information messages
+    public static final String INFO_MAIN_MENU_TITLE = "Main Menu";
 
     // ERROR_* for error messages
 
