@@ -15,4 +15,7 @@ public interface Interface {
 
     // Method to print menu title
     void printMenuTitle(String title);
+
+    // Method to print table title
+    void printTableTitle(String title);
 }
