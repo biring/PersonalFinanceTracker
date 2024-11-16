@@ -1,6 +1,7 @@
 package dao;
 
 import model.AccountModel;
+import model.AccountType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,9 @@ public class AccountDao {
     }
 
     // Create a new account
-    public boolean addAccount(int id, String name) {
-        AccountModel account = new AccountModel(id, name);
+    public boolean addAccount(int id, String name, int idx) {
+        AccountType type = AccountType.values()[idx];
+        AccountModel account = new AccountModel(id, name, type);
         accounts.add(account);
         this.nextID ++;
         for (AccountModel ac : accounts) {
@@ -70,4 +72,25 @@ public class AccountDao {
         }
         return false;
     }
+
+    // get account type as a table of strings
+    public List<String> getAccountTypes() {
+        List<String> accountTypes = new ArrayList<>();
+        for (AccountType type : AccountType.values()) {
+            accountTypes.add(type.toString());
+        }
+        return accountTypes;
+    }
+
+    // validate account type
+    public boolean isAccountTypeValid(int index) {
+        try {
+            // Attempt to access the enum by index
+            AccountType value = AccountType.values()[index];
+            return true;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // Handle invalid index
+            return false;
+            }
+        }
 }
