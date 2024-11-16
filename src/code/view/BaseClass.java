@@ -1,5 +1,6 @@
 package view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import controller.MenuOption;
@@ -71,6 +72,13 @@ public class BaseClass implements Interface {
     public final void printTableTitle(String title) {
         String text = "\n---" + title + "---";
         printMessageLine(text);
+    }
+
+    protected final void printTable(String title, List<String> data) {
+        printTableTitle(title);
+        for (String row : data) {
+            printMessageLine(row);
+        }
     }
 
     protected void printMessage(String message) {
