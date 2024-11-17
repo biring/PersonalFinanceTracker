@@ -40,7 +40,6 @@ public abstract class BaseDAO<T> {
 
     // Read all items
     public List<T> readAll() {
-        System.out.println(items);
         return items;
     }
 
