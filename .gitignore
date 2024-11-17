@@ -64,3 +64,6 @@ replay_pid*
 
 # Data files for testing
 data/
+
+# temporarily ignore docs. To be removed after the documentation is added
+docs/
