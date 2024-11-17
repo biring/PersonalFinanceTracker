@@ -15,14 +15,14 @@ public class BudgetService {
     public List<String> showCategoriesWithoutBudgets() {
         return categoryDAO.readAll().stream()
                 .filter(category -> category.getCategoryBudget() <= 0)
-                .map(category -> "[" + category.getID() + "] " + category.getName()+ " ($" + category.getCategoryBudget() + ")")
+                .map(category -> "[" + category.getID() + "] " + category.getName() + " ($" + category.getCategoryBudget() + ")")
                 .toList();
     }
 
     public List<String> showCategoriesWithBudgets() {
         return categoryDAO.readAll().stream()
                 .filter(category -> category.getCategoryBudget() > 0)
-                .map(category -> "[" + category.getID() + "] " + category.getName()+ " ($" + category.getCategoryBudget() + ")")
+                .map(category -> "[" + category.getID() + "] " + category.getName() + " ($" + category.getCategoryBudget() + ")")
                 .toList();
     }
 
@@ -33,12 +33,27 @@ public class BudgetService {
                 && (categoryDAO.isCategoryNameExists(categoryName));
     }
 
+    public boolean isCategoryWithoutBudget(int id) {
+        try {
+            return categoryDAO.read(id).getCategoryBudget() <= 0;
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
     public boolean setBudget(int id, int budget) {
-        return categoryDAO.updateBudget(id, budget);
+        try {
+            return categoryDAO.updateBudget(id, budget);
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     public boolean resetBudget(int id) {
-        return categoryDAO.updateBudget(id,0);
+        try {
+            return categoryDAO.updateBudget(id, 0);
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 }
-
