@@ -6,57 +6,31 @@ import model.AccountType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountDao {
-    private final List<AccountModel> accounts = new ArrayList<>();
-    private int nextID = 0;
+public class AccountDAO extends BaseDAO<AccountModel> {
 
-    // get the next available ID
-    public int getNextID() {
-        if (this.nextID == 0) {
-            for (AccountModel account : accounts) {
-                if (this.nextID <= account.getID()) {
-                    this.nextID = account.getID();
-                }
-            }
-            this.nextID ++;
-        }
-        return this.nextID;
+    private final List<AccountModel> accounts = super.items;
+
+    public AccountDAO(){
+        super();
+    }
+
+    @Override
+    protected int extractID(AccountModel account) {
+        return account.getID();
     }
 
     // Create a new account
-    public boolean addAccount(int id, String name, int idx) {
-        AccountType type = AccountType.values()[idx];
+    public boolean create(int id, String name, int typeIndex) {
+        AccountType type = AccountType.values()[typeIndex];
         AccountModel account = new AccountModel(id, name, type);
-        accounts.add(account);
-        this.nextID ++;
-        for (AccountModel ac : accounts) {
-            if (ac.getID() == id) {
-                return true;
-            }
-        }
-        return false;
+        return createItem(account);
     }
 
-    public boolean updateAccount(int id, String name) {
+    // Update account name
+    public boolean updateName(int id, String name) {
         for (AccountModel account : accounts) {
             if (account.getID() == id) {
                 account.setName(name);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Retrieve all accounts
-    public List<AccountModel> getAllAccounts() {
-        return accounts;
-    }
-
-    // delete an account
-    public boolean deleteAccount(int id) {
-        for (AccountModel account : accounts) {
-            if (account.getID() == id) {
-                accounts.remove(account);
                 return true;
             }
         }
@@ -83,10 +57,10 @@ public class AccountDao {
     }
 
     // validate account type
-    public boolean isAccountTypeValid(int index) {
+    public boolean isAccountTypeValid(int typeIndex) {
         try {
             // Attempt to access the enum by index
-            AccountType value = AccountType.values()[index];
+            AccountType value = AccountType.values()[typeIndex];
             return true;
         } catch (ArrayIndexOutOfBoundsException e) {
             // Handle invalid index
