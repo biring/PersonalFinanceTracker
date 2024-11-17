@@ -71,4 +71,14 @@ public class CategoryDao {
         }
         return false;
     }
+
+    public boolean updateCategoryBudget(String categoryBudget, int budgetAmount) {
+        for (CategoryModel category : catagories) {
+            if (category.getName().equals(categoryBudget)) {
+                category.setCategoryBudget(budgetAmount);
+                return true;
+            }
+        }
+        return false;
+    }
 }
