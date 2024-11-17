@@ -8,6 +8,8 @@ public class CategoryDAO extends BaseDAO<CategoryModel> {
 
     private final List<CategoryModel> catagories = super.items;
 
+    public static final int NO_BUDGET = CategoryModel.NO_BUDGET;
+
     public CategoryDAO(){
         super();
     }

@@ -4,9 +4,11 @@ public class CategoryModel extends BaseModel {
 
     private int categoryBudget;
 
+    public static final int NO_BUDGET = 0;
+
     public CategoryModel(int id, String name) {
         super(id, name);
-        this.categoryBudget = -1; // Default value mean no budget set
+        this.categoryBudget = NO_BUDGET;
     }
 
     public int getCategoryBudget() {
