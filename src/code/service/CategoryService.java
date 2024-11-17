@@ -1,50 +1,39 @@
 package service;
 
-import dao.CategoryDao;
-import model.BaseModel;
+import dao.CategoryDAO;
 
 import java.util.List;
 
 public class CategoryService {
 
-    private static final CategoryDao categoryDao = new CategoryDao();
+    private final CategoryDAO categoryDAO;
 
-    public CategoryService() {
-    }
-
-    // return shared instance
-    public static CategoryDao getCategoryDaoInstance() {
-        return categoryDao;
+    public CategoryService(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
     }
 
     public boolean createCategory(String name) {
-        int id = categoryDao.getNextID();
-        return categoryDao.addCategory(id, name);
+        int id = categoryDAO.getNextID();
+        return categoryDAO.create(id, name);
     }
 
     public boolean updateCategory(int id, String name) {
-        return categoryDao.updateCategory(id, name);
+        return categoryDAO.updateName(id, name);
     }
 
-    public List<String> getCategoriesForSelection() {
-        return categoryDao.getCategories().stream()
-                .map(BaseModel::getName)
-                .toList();
-    }
-
-    public List<String> getAllCategoriesForDisplay() {
-        return categoryDao.getCategories().stream()
+    public List<String> showCategories() {
+        return categoryDAO.readAll().stream()
                 .map(category -> "[" + category.getID() + "] " + category.getName())
                 .toList();
     }
 
     public boolean deleteCategory(int id) {
-        return categoryDao.deleteCategory(id);
+        return categoryDAO.delete(id);
     }
 
     public boolean isCategoryNameValid(String categoryName) {
         return (categoryName != null)
                 && (!categoryName.isEmpty())
-                && (!categoryDao.isCategoryNameExists(categoryName));
+                && (!categoryDAO.isCategoryNameExists(categoryName));
     }
 }

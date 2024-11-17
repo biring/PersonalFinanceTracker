@@ -1,30 +1,27 @@
 package controller;
 
+import dao.AccountDAO;
+import dao.CategoryDAO;
 import view.MainView;
 
 public class MainController extends BaseClass<MainView> {
+    private final AccountDAO accountDAO = new AccountDAO();
+    private final CategoryDAO categoryDAO = new CategoryDAO();
 
-    private AccountController accountController;
-    private CategoryController categoryController;
-    private BudgetController budgetController;
-    private LinkController linkController;
-    private TransactionController transactionController;
-    private ReportController reportController;
+    private final AccountController accountController = new AccountController(accountDAO);
+    private final CategoryController categoryController = new CategoryController(categoryDAO);
+    private final BudgetController budgetController = new BudgetController(categoryDAO);
+    private final LinkController linkController = new LinkController();
+    private final TransactionController transactionController = new TransactionController();
+    private final ReportController reportController = new ReportController();
 
     // Constructor to initialize the shared Scanner object
     public MainController() {
         super(new MainView());
     }
 
-    // Method to initialize the application
     @Override
     public void start() {
-        this.accountController = new AccountController();
-        this.categoryController = new CategoryController();
-        this.budgetController = new BudgetController();
-        this.reportController = new ReportController();
-        this.transactionController = new TransactionController();
-        this.linkController = new LinkController();
     }
 
     // Method to start the application flow

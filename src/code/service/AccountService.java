@@ -1,6 +1,6 @@
 package service;
 
-import dao.AccountDao;
+import dao.AccountDAO;
 
 import java.util.List;
 
@@ -9,35 +9,36 @@ public class AccountService {
     private static final int MIN_ACCOUNT_NAME_LENGTH = 3;
     private static final int MAX_ACCOUNT_NAME_LENGTH = 20;
 
-    private final AccountDao accountDao = new AccountDao();
+    private final AccountDAO accountDAO;
 
-    public AccountService() {
+    public AccountService(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
     }
 
 
-    public boolean createAccount(String name, int idx) {
-        int id = accountDao.getNextID();
-        return accountDao.addAccount(id, name, idx);
+    public boolean createAccount(String name, int typeIndex) {
+        int id = accountDAO.getNextID();
+        return accountDAO.create(id, name, typeIndex);
     }
 
     public boolean updateAccount(int id, String name) {
-        return accountDao.updateAccount(id, name);
+        return accountDAO.updateName(id, name);
     }
 
     public boolean deleteAccount(int id) {
-        return accountDao.deleteAccount(id);
+        return accountDAO.delete(id);
     }
 
-    public List<String> getAllAccountsAsString() {
-        return accountDao.getAllAccounts().stream()
+    public List<String> showAccounts() {
+        return accountDAO.readAll().stream()
                 .map(account -> "[" + account.getID() + "] " + account.getName()+ " (" + account.getAccountType() + ")")
                 .toList();
     }
 
-    public List<String> getAccountType() {
+    public List<String> showAccountTypes() {
         List<String> accountTypesWithIndex = new java.util.ArrayList<>(List.of());
 
-        List<String> accountTypes = accountDao.getAccountTypes();
+        List<String> accountTypes = accountDAO.getAccountTypes();
             for (int i = 0; i < accountTypes.size(); i++) {
                 accountTypesWithIndex.add("[" + (i + 1) + "] " + accountTypes.get(i));
         }
@@ -47,13 +48,13 @@ public class AccountService {
     public boolean isAccountNameValid(String accountName) {
         return (accountName != null)
                 && (!accountName.isEmpty())
-                && (!accountDao.isAccountNameExists(accountName))
+                && (!accountDAO.isAccountNameExists(accountName))
                 && (accountName.length() >= MIN_ACCOUNT_NAME_LENGTH)
                 && (accountName.length() <= MAX_ACCOUNT_NAME_LENGTH);
     }
 
     public boolean isAccountTypeValid(int idx) {
-        return accountDao.isAccountTypeValid(idx);
+        return accountDAO.isAccountTypeValid(idx);
     }
 }
 

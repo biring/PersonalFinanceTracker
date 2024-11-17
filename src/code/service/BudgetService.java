@@ -1,59 +1,44 @@
 package service;
 
-import dao.CategoryDao;
-import model.CategoryModel;
+import dao.CategoryDAO;
 
 import java.util.List;
 
 public class BudgetService {
 
-    private static CategoryDao categoryDao = null;
+    private CategoryDAO categoryDAO = null;
 
-    public BudgetService() {
-        categoryDao = CategoryService.getCategoryDaoInstance();
-
+    public BudgetService(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
     }
 
-    public List<String> getCategoriesWithoutBudgets() {
-        return categoryDao.getCategories().stream()
-                .filter(category -> category.getCategoryBudget() < 0)
-                .map(CategoryModel::getName)
+    public List<String> showCategoriesWithoutBudgets() {
+        return categoryDAO.readAll().stream()
+                .filter(category -> category.getCategoryBudget() <= 0)
+                .map(category -> "[" + category.getID() + "] " + category.getName()+ " ($" + category.getCategoryBudget() + ")")
                 .toList();
     }
 
-    public List<String> getCategoriesWithBudgets() {
-        return categoryDao.getCategories().stream()
-                .filter(category -> category.getCategoryBudget() >= 0)
-                .map(CategoryModel::getName)
+    public List<String> showCategoriesWithBudgets() {
+        return categoryDAO.readAll().stream()
+                .filter(category -> category.getCategoryBudget() > 0)
+                .map(category -> "[" + category.getID() + "] " + category.getName()+ " ($" + category.getCategoryBudget() + ")")
                 .toList();
     }
-
-    public String getCategoryName(int categoryId) {
-        String categoryName = "";
-
-        for (CategoryModel category : categoryDao.getCategories()) {
-            if (categoryId == category.getID()) {
-                categoryName = category.getName();
-                break;
-            }
-        }
-        return categoryName;
-    }
-
 
     public boolean isCategoryBudgetValid(String categoryName, int budget) {
         return (categoryName != null)
                 && (!categoryName.isEmpty())
                 && (budget >= 0)
-                && (categoryDao.isCategoryNameExists(categoryName));
+                && (categoryDAO.isCategoryNameExists(categoryName));
     }
 
-    public boolean setBudget(String categoryName, int budget) {
-        return categoryDao.updateCategoryBudget(categoryName, budget);
+    public boolean setBudget(int id, int budget) {
+        return categoryDAO.updateBudget(id, budget);
     }
 
-    public boolean resetBudget(String categoryName) {
-        return categoryDao.updateCategoryBudget(categoryName, -1);
+    public boolean resetBudget(int id) {
+        return categoryDAO.updateBudget(id,0);
     }
 }
 

@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CategoryDAO;
 import service.BudgetService;
 import view.BudgetView;
 
@@ -7,11 +8,15 @@ import java.util.List;
 
 public class BudgetController extends BaseClass<BudgetView> {
 
-    private final BudgetService budgetService = new BudgetService();
+    private final BudgetService budgetService;
 
-    public BudgetController() {
+    public BudgetController(CategoryDAO categoryDAO) {
         super(new BudgetView());
+        this.budgetService = new BudgetService(categoryDAO);
     }
+
+    // Method to start the application flow
+
 
     public void run() {
         enumMenuOptions selectedOption;
@@ -41,41 +46,38 @@ public class BudgetController extends BaseClass<BudgetView> {
     }
 
     private void createBudget() {
-        List<String> categories = budgetService.getCategoriesWithoutBudgets();
+        List<String> categories = budgetService.showCategoriesWithoutBudgets();
         int categoryId = view.promptForCategorySelection(categories);
-        String categoryName = budgetService.getCategoryName(categoryId);
         int categoryBudget = view.promptForCategoryBudget();
-        boolean success = budgetService.setBudget(categoryName, categoryBudget);
+        boolean success = budgetService.setBudget(categoryId, categoryBudget);
         view.showBudgetCreationResult(success);
     }
 
     private void modifyBudget() {
-        List<String> categories = budgetService.getCategoriesWithBudgets();
+        List<String> categories = budgetService.showCategoriesWithBudgets();
         int categoryId = view.promptForCategorySelection(categories);
-        String categoryName = budgetService.getCategoryName(categoryId);
         int categoryBudget = view.promptForCategoryBudget();
-        boolean success = budgetService.setBudget(categoryName, categoryBudget);
+        boolean success = budgetService.setBudget(categoryId, categoryBudget);
         view.showBudgetModificationResult(success);
     }
 
     private void viewBudgets() {
-        view.showBudgets(budgetService.getCategoriesWithBudgets());
+        view.showBudgets(budgetService.showCategoriesWithBudgets());
     }
 
     private void deleteBudget() {
-        List<String> categories = budgetService.getCategoriesWithBudgets();
+        List<String> categories = budgetService.showCategoriesWithBudgets();
         int categoryId = view.promptForCategorySelection(categories);
-        String categoryName = budgetService.getCategoryName(categoryId);
-        boolean success = budgetService.resetBudget(categoryName);
+        boolean success = budgetService.resetBudget(categoryId);
         view.showBudgetDeletionResult(success);
     }
 
 
     private enum enumMenuOptions implements MenuOption {
-        CREATE("Create Category"),
-        MODIFY("Modify Category"),
-        VIEW("View Category"),
-        DELETE("Delete Category"),
+        CREATE("Create Budget"),
+        MODIFY("Modify Budget"),
+        VIEW("View Budget"),
+        DELETE("Delete Budget"),
         EXIT("Exit");
 
         private final String text;

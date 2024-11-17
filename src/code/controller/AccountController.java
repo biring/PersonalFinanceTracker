@@ -1,13 +1,17 @@
 package controller;
 
+import dao.AccountDAO;
 import service.AccountService;
 import view.AccountView;
 
-public class AccountController extends BaseClass<AccountView> {
-    private final AccountService accountService = new AccountService();
+import java.util.List;
 
-    public AccountController() {
+public class AccountController extends BaseClass<AccountView> {
+    private final AccountService accountService;
+
+    public AccountController(AccountDAO accountDAO) {
         super(new AccountView());
+        this.accountService = new AccountService(accountDAO);
     }
 
     // Method to start the application flow
@@ -46,19 +50,21 @@ public class AccountController extends BaseClass<AccountView> {
     }
 
     private void modifyAccount() {
-        int accountId = view.promptForAccountId(accountService.getAllAccountsAsString());
+        List<String> accounts = accountService.showAccounts();
+        int accountId = view.promptForAccountId(accounts);
         String accountName = getAccountName();
         boolean success = accountService.updateAccount(accountId, accountName);
         view.showAccountModificationResult(success);
     }
 
     private void viewAccounts() {
-        view.showAccounts(accountService.getAllAccountsAsString());
+        view.showAccounts(accountService.showAccounts());
     }
 
     private void deleteAccount() {
-        int id = view.promptForAccountId(accountService.getAllAccountsAsString());
-        boolean success = accountService.deleteAccount(id);
+        List<String> accounts = accountService.showAccounts();
+        int accountId = view.promptForAccountId(accounts);
+        boolean success = accountService.deleteAccount(accountId);
         view.showAccountDeletionResult(success);
     }
 
@@ -78,7 +84,7 @@ public class AccountController extends BaseClass<AccountView> {
         boolean isAccountTypeValid;
         int accountTypeIndex;
         do {
-            accountTypeIndex = view.promptForAccountTypeIndex(accountService.getAccountType());
+            accountTypeIndex = view.promptForAccountTypeIndex(accountService.showAccountTypes())-1;
             isAccountTypeValid = accountService.isAccountTypeValid(accountTypeIndex);
             view.showAccountTypeValidResult(isAccountTypeValid);
         } while (!isAccountTypeValid);

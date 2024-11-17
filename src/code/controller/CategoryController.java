@@ -1,14 +1,18 @@
 package controller;
 
+import dao.CategoryDAO;
 import service.CategoryService;
 import view.CategoryView;
 
+import java.util.List;
+
 public class CategoryController extends BaseClass<CategoryView> {
 
-    private final CategoryService categoryService = new CategoryService();
+    private final CategoryService categoryService;
 
-    public CategoryController() {
+    public CategoryController(CategoryDAO categoryDAO) {
         super(new CategoryView());
+        this.categoryService = new CategoryService(categoryDAO);
     }
 
     // Method to start the application flow
@@ -46,18 +50,20 @@ public class CategoryController extends BaseClass<CategoryView> {
     }
 
     private void modifyCategory() {
-        int categoryId = view.promptForCategorySelection(categoryService.getCategoriesForSelection());
+        List<String> categories = categoryService.showCategories();
+        int categoryId = view.promptForCategorySelection(categories);
         String categoryName = getCategoryName();
         boolean success = categoryService.updateCategory(categoryId, categoryName);
         view.showCategoryModificationResult(success);
     }
 
     private void viewCategories() {
-        view.showCategories(categoryService.getAllCategoriesForDisplay());
+        view.showCategories(categoryService.showCategories());
     }
 
     private void deleteCategory() {
-        int categoryId = view.promptForCategorySelection(categoryService.getCategoriesForSelection());
+        List<String> categories = categoryService.showCategories();
+        int categoryId = view.promptForCategorySelection(categories);
         boolean success = categoryService.deleteCategory(categoryId);
         view.showCategoryDeletionResult(success);
     }
