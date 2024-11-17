@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuOption;
+import utility.Console;
 
 import java.util.List;
 
@@ -26,6 +27,14 @@ public class BudgetView extends BaseClass {
 
     public void showBudgets(List<String> budgets) {
         super.displayTableData(budgets, TITLE_BUDGET_TABLE);
+    }
+
+    public void showNoCategoriesAvailable() {
+        Console.printMessage(INFO_CATEGORY_NOT_AVAILABLE);
+    }
+
+    public void showCategoriesSelectionResult(boolean success) {
+        super.displaySuccessFailureMessage(success, "", WARNING_INVALID_SELECTION);
     }
 
     public void showBudgetCreationResult(boolean success) {
