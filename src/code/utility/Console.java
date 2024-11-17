@@ -4,12 +4,35 @@ import java.util.Scanner;
 
 public class Console {
 
-    public static String getStringInput(Scanner scanner) {
-        return scanner.nextLine();
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
+    public static void waitForEnter(Scanner scanner) {
+        scanner.nextLine();
+    }
+
+    public static String getStringInput(Scanner scanner) {
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.isBlank()) {
+                Console.printMessage("Invalid input. Please enter a string.");
+            } else {
+                return input;
+            }
+        }
+    }
+
+
     public static int getIntInput(Scanner scanner) {
-        return stringToInt(getStringInput(scanner));
+        while (true) {
+            try {
+                return Integer.parseInt(getStringInput(scanner));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
     }
 
     public static void printPrompt(String message) {
@@ -18,13 +41,5 @@ public class Console {
 
     public static void printMessage(String message) {
         System.out.println(message);
-    }
-
-    private static int stringToInt(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            return -1; // Invalid input
-        }
     }
 }
