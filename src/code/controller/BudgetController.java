@@ -46,30 +46,68 @@ public class BudgetController extends BaseClass<BudgetView> {
     }
 
     private void createBudget() {
-        List<String> categories = budgetService.showCategoriesWithoutBudgets();
-        int categoryId = view.promptForCategorySelection(categories);
-        int categoryBudget = view.promptForCategoryBudget();
-        boolean success = budgetService.setBudget(categoryId, categoryBudget);
-        view.showBudgetCreationResult(success);
+        if (budgetService.showCategoriesWithoutBudgets().isEmpty()) {
+            view.showNoCategoriesAvailable();
+        }
+        else {
+            int categoryId = getCategoryWithoutBudgets();
+            int categoryBudget = view.promptForCategoryBudget();
+            boolean success = budgetService.setBudget(categoryId, categoryBudget);
+            view.showBudgetCreationResult(success);
+        }
     }
 
     private void modifyBudget() {
-        List<String> categories = budgetService.showCategoriesWithBudgets();
-        int categoryId = view.promptForCategorySelection(categories);
-        int categoryBudget = view.promptForCategoryBudget();
-        boolean success = budgetService.setBudget(categoryId, categoryBudget);
-        view.showBudgetModificationResult(success);
+        if (budgetService.showCategoriesWithBudgets().isEmpty()) {
+            view.showNoCategoriesAvailable();
+        } else {
+            int categoryId = getCategoryWithBudgets();
+            int categoryBudget = view.promptForCategoryBudget();
+            boolean success = budgetService.setBudget(categoryId, categoryBudget);
+            view.showBudgetModificationResult(success);
+        }
     }
 
     private void viewBudgets() {
-        view.showBudgets(budgetService.showCategoriesWithBudgets());
+        if (budgetService.showCategoriesWithBudgets().isEmpty()) {
+            view.showNoCategoriesAvailable();
+        } else {
+            view.showBudgets(budgetService.showCategoriesWithBudgets());
+        }
     }
 
     private void deleteBudget() {
+        if (budgetService.showCategoriesWithBudgets().isEmpty()) {
+            view.showNoCategoriesAvailable();
+        } else {
+            int categoryId = getCategoryWithBudgets();
+            boolean success = budgetService.resetBudget(categoryId);
+            view.showBudgetDeletionResult(success);
+        }
+    }
+
+    private int getCategoryWithoutBudgets() {
+        List<String> categories = budgetService.showCategoriesWithoutBudgets();
+        boolean isCategoryWithoutBudget;
+        int categoryId;
+        do {
+            categoryId = view.promptForCategorySelection(categories);
+            isCategoryWithoutBudget = budgetService.isCategoryWithoutBudget(categoryId);
+            view.showCategoriesSelectionResult(isCategoryWithoutBudget);
+        } while (!isCategoryWithoutBudget);
+        return categoryId;
+    }
+
+    private int getCategoryWithBudgets() {
         List<String> categories = budgetService.showCategoriesWithBudgets();
-        int categoryId = view.promptForCategorySelection(categories);
-        boolean success = budgetService.resetBudget(categoryId);
-        view.showBudgetDeletionResult(success);
+        boolean isCategoryWithBudget;
+        int categoryId;
+        do {
+            categoryId = view.promptForCategorySelection(categories);
+            isCategoryWithBudget = !budgetService.isCategoryWithoutBudget(categoryId);
+            view.showCategoriesSelectionResult(isCategoryWithBudget);
+        } while (!isCategoryWithBudget);
+        return categoryId;
     }
 
 
