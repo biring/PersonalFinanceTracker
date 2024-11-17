@@ -36,14 +36,7 @@ public class TableHelper {
 
     // Prompt for the user's menu selection and validate the input
     private int getUserSelection(String prompt) {
-        int selection = -1;
-        while (selection < 1) {
-            Console.printPrompt(prompt);
-            selection = Console.getIntInput(scanner);
-            if (selection < 1) {
-                System.out.println("Invalid selection.");
-            }
-        }
-        return selection;
+        Console.printPrompt(prompt);
+        return Console.getIntInput(scanner);
     }
 }
