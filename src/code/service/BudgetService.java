@@ -26,13 +26,6 @@ public class BudgetService {
                 .toList();
     }
 
-    public boolean isCategoryBudgetValid(String categoryName, int budget) {
-        return (categoryName != null)
-                && (!categoryName.isEmpty())
-                && (budget >= 0)
-                && (categoryDAO.isCategoryNameExists(categoryName));
-    }
-
     public boolean isCategoryWithoutBudget(int id) {
         try {
             return categoryDAO.read(id).getCategoryBudget() <= 0;
