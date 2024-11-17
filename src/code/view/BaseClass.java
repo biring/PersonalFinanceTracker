@@ -19,15 +19,14 @@ public class BaseClass implements Interface {
 
     @Override
     public final String promptForStringInput(String message) {
-        while (true) {
-            Console.printPrompt(message);
-            String input = Console.getStringInput(scanner);
-            if (input.isBlank()) {
-                Console.printMessage("Input cannot be blank.");
-            } else {
-                return input;
-            }
-        }
+        Console.printPrompt(message);
+        return Console.getStringInput(scanner);
+    }
+
+    @Override
+    public final int promptForIntInput(String message) {
+        Console.printPrompt(message);
+        return Console.getIntInput(scanner);
     }
 
     protected final <T extends Enum<T> & MenuOption> T getEnumMenuSelection(Class<T> enumType, String title, String message) {
