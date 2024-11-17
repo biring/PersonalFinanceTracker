@@ -7,9 +7,14 @@ import java.util.List;
 
 public class CategoryService {
 
-    private final CategoryDao categoryDao = new CategoryDao();
+    private static final CategoryDao categoryDao = new CategoryDao();
 
     public CategoryService() {
+    }
+
+    // return shared instance
+    public static CategoryDao getCategoryDaoInstance() {
+        return categoryDao;
     }
 
     public boolean createCategory(String name) {
