@@ -1,6 +1,10 @@
 package controller;
 
+import utility.CSVReader;
 import view.TransactionView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionController extends BaseClass<TransactionView> {
 
@@ -9,7 +13,7 @@ public class TransactionController extends BaseClass<TransactionView> {
     }
 
     public void run() {
-        TransactionController.enumMenuOptions selectedOption;
+        enumMenuOptions selectedOption;
         do {
             selectedOption = view.promptForEnumMenuSelection(enumMenuOptions.class);
             switch (selectedOption) {
@@ -55,7 +59,38 @@ public class TransactionController extends BaseClass<TransactionView> {
     }
 
     private void importTransaction() {
-        view.showMenuOptionNotSupported();
+        List<String> availableFiles = CSVReader.getCSVFilesInFolder("data");
+        if (availableFiles.isEmpty()) {
+            view.showNoCSVFilesFound();
+        } else {
+            String selectedFile = getFileSelection(availableFiles);
+            List<String[]> data = CSVReader.readCSV(selectedFile);
+            //boolean success = transactionService.processCSVData(data);
+            view.showCSVFileReadResult(!data.isEmpty());
+        }
+    }
+
+    private String getFileSelection(List<String> files) {
+        List<String> filesWithIndex = addIndexToCSVFiles(files);
+        int fileIndex = view.promptForCSVFileSelection(filesWithIndex);
+        while (true) {
+            try {
+                String selectedFile = files.get(fileIndex - 1);
+                System.out.println("Selected file: " + selectedFile);
+                return selectedFile;
+            } catch (IndexOutOfBoundsException e) {
+                view.showInvalidSelection();
+                fileIndex = view.promptForCSVFileSelection();
+            }
+        }
+    }
+
+    private List<String> addIndexToCSVFiles(List<String> files) {
+        List<String> filesWithIndex = new ArrayList<>(files.size());
+        for (int i = 1; i <= files.size(); i++) {
+            filesWithIndex.add("[" + i + "] " + files.get(i - 1));
+        }
+        return filesWithIndex;
     }
 
     private enum enumMenuOptions implements MenuOption {
