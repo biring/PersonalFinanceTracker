@@ -1,6 +1,5 @@
 package controller;
 
-import dao.AccountDAO;
 import service.AccountService;
 import view.AccountView;
 
@@ -9,9 +8,9 @@ import java.util.List;
 public class AccountController extends BaseClass<AccountView> {
     private final AccountService accountService;
 
-    public AccountController(AccountDAO accountDAO) {
+    public AccountController(AccountService accountService) {
         super(new AccountView());
-        this.accountService = new AccountService(accountDAO);
+        this.accountService = accountService;
     }
 
     // Method to start the application flow
