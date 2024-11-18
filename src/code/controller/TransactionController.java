@@ -1,5 +1,7 @@
 package controller;
 
+import service.AccountService;
+import service.TransactionService;
 import utility.CSVReader;
 import view.TransactionView;
 
@@ -7,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionController extends BaseClass<TransactionView> {
+    private final TransactionService transactionService;
 
-    public TransactionController() {
+    public TransactionController(AccountService accountService) {
         super(new TransactionView());
+        this.transactionService = new TransactionService(accountService);
     }
 
     public void run() {
