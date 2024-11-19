@@ -45,6 +45,10 @@ public class AccountService {
         return accountTypesWithIndex;
     }
 
+    public boolean isValidAccountId(int id) {
+        return accountDAO.isValidAccountId(id);
+    }
+
     public boolean isAccountNameValid(String accountName) {
         return (accountName != null)
                 && (!accountName.isEmpty())
