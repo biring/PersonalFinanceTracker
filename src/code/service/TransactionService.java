@@ -10,7 +10,11 @@ public class TransactionService {
         this.accountService = accountService;
     }
 
-    public List<String> getAccount() {
+    public List<String> getAccounts() {
         return accountService.showAccounts();
+    }
+
+    public boolean isValidAccountId(int accountId) {
+        return accountService.isValidAccountId(accountId);
     }
 }
