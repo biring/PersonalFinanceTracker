@@ -63,15 +63,31 @@ public class TransactionController extends BaseClass<TransactionView> {
     }
 
     private void importTransaction() {
+        List<String> accounts = transactionService.getAccounts();
+        if (accounts.isEmpty()) {
+            view.showNoAccountsFound();
+            return;
+        }
+        int accountIndex = getAccountSelection(accounts);
+
         List<String> availableFiles = CSVReader.getCSVFilesInFolder("data");
         if (availableFiles.isEmpty()) {
             view.showNoCSVFilesFound();
-        } else {
-            String selectedFile = getFileSelection(availableFiles);
-            List<String[]> data = CSVReader.readCSV(selectedFile);
-            //boolean success = transactionService.processCSVData(data);
-            view.showCSVFileReadResult(!data.isEmpty());
+            return;
         }
+        String selectedFile = getFileSelection(availableFiles);
+        List<String[]> data = CSVReader.readCSV(selectedFile);
+        //boolean success = transactionService.processCSVData(data);
+        view.showCSVFileReadResult(!data.isEmpty());
+    }
+
+    private int getAccountSelection(List<String> accounts) {
+        int selection = view.promptForAccountSelection(accounts);
+        while (!transactionService.isValidAccountId(selection)) {
+                view.showInvalidSelection();
+                selection = view.promptForAccountSelection();
+        }
+        return selection;
     }
 
     private String getFileSelection(List<String> files) {
