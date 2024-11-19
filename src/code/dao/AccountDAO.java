@@ -56,6 +56,14 @@ public class AccountDAO extends BaseDAO<AccountModel> {
         return accountTypes;
     }
 
+    // validate account ID
+    public boolean isValidAccountId(int id) {
+        if (accounts == null) {
+            return false; // Handle null safely
+        }
+        return accounts.stream().anyMatch(account -> account.getID() == id);
+    }
+
     // validate account type
     public boolean isAccountTypeValid(int typeIndex) {
         try {
