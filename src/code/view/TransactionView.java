@@ -21,12 +21,24 @@ public class TransactionView extends BaseClass {
         Console.printMessage(INFO_MENU_SELECTION_NOT_SUPPORTED);
     }
 
+    public void showNoAccountsFound() {
+        Console.printMessage(INFO_NO_ACCOUNTS_FOUND);
+    }
+
     public void showNoCSVFilesFound() {
         Console.printMessage(INFO_NO_CSV_FILE_FOUND);
     }
 
     public int promptForCSVFileSelection(List<String> files) {
         return super.getTableSelection(files, TITLE_FILE, PROMPT_FOR_FILE);
+    }
+
+    public int promptForAccountSelection(List<String> accounts) {
+        return super.getTableSelection(accounts, TITLE_ACCOUNT, PROMPT_FOR_ACCOUNT);
+    }
+
+    public int promptForAccountSelection() {
+        return super.promptForIntInput(PROMPT_FOR_ACCOUNT);
     }
 
     public void showInvalidSelection() {
