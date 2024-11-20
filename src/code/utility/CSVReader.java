@@ -41,7 +41,7 @@ public final class CSVReader {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             while ((line = br.readLine()) != null) {
                 // Split line by commas and add to list
-                String[] values = line.split("");
+                String[] values = line.split(",");
                 records.add(values);
             }
         } catch (IOException e) {
