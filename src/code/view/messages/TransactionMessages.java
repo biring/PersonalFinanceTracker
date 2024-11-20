@@ -10,11 +10,13 @@ public class TransactionMessages {
     public static final String TITLE_MENU = "Transaction Menu";
     public static final String TITLE_ACCOUNT = "List of available accounts";
     public static final String TITLE_FILE = "List of csv files";
+    public static final String TITLE_TRANSACTION_TABLE = "List of transactions";
     // INFO_* for general information messages
     public static final String INFO_MENU_SELECTION_NOT_SUPPORTED = "Selection not supported.";
     public static final String INFO_NO_ACCOUNTS_FOUND = "No accounts found.";
     public static final String INFO_NO_CSV_FILE_FOUND = "No csv data file found.";
     public static final String INFO_CSV_FILE_READ_SUCCESS = "CSV file read successful.";
+    public static final String INFO_NO_TRANSACTIONS_FOUND = "No transactions found.";
     // WARNING_* for warning messages
     public static final String WARNING_INVALID_SELECTION = "Invalid selection.";
     public static final String WARNING_CSV_FILE_READ_FAILED = "CSV file read failed.";
