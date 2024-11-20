@@ -5,6 +5,7 @@ import utility.Console;
 
 import java.util.List;
 
+import static view.messages.CategoryMessages.TITLE_TABLE;
 import static view.messages.TransactionMessages.*;
 
 public class TransactionView extends BaseClass {
@@ -43,6 +44,14 @@ public class TransactionView extends BaseClass {
 
     public void showInvalidSelection() {
         Console.printMessage(WARNING_INVALID_SELECTION);
+    }
+
+    public void showNoTransactionsFound() {
+        Console.printMessage(INFO_NO_TRANSACTIONS_FOUND);
+    }
+
+    public void showTransactions(List<String> transactions) {
+        super.displayTableData(transactions, TITLE_TRANSACTION_TABLE);
     }
 
     public int promptForCSVFileSelection() {
