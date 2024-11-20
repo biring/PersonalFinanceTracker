@@ -55,7 +55,12 @@ public class TransactionController extends BaseClass<TransactionView> {
     }
 
     private void viewTransaction() {
-        view.showMenuOptionNotSupported();
+        List<String> transactions = transactionService.showTransactions();
+        if (transactions.isEmpty()) {
+            view.showNoTransactionsFound();
+            return;
+        }
+        view.showTransactions(transactions);
     }
 
     private void deleteTransaction() {
@@ -77,7 +82,7 @@ public class TransactionController extends BaseClass<TransactionView> {
         }
         String selectedFile = getFileSelection(availableFiles);
         List<String[]> data = CSVReader.readCSV(selectedFile);
-        //boolean success = transactionService.processCSVData(data);
+        boolean success = transactionService.createTransactions(accountIndex, data);
         view.showCSVFileReadResult(!data.isEmpty());
     }
 
