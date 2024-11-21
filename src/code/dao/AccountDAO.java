@@ -11,7 +11,7 @@ public class AccountDAO extends BaseDAO<AccountModel> {
     private final List<AccountModel> accounts = super.items;
 
     public AccountDAO(){
-        super();
+        super(AccountModel.class);
     }
 
     @Override
