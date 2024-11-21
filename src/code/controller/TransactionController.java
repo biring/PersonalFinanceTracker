@@ -5,6 +5,7 @@ import service.TransactionService;
 import utility.CSVReader;
 import view.TransactionView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class TransactionController extends BaseClass<TransactionView> {
         super(new TransactionView());
         this.transactionService = new TransactionService(accountService);
     }
+
+    public void start() {
+        readFromDatabase();    }
 
     public void run() {
         enumMenuOptions selectedOption;
@@ -37,13 +41,29 @@ public class TransactionController extends BaseClass<TransactionView> {
                     importTransaction();
                     break;
                 case EXIT:
-                    System.out.println("Exit");
+                    writeToDatabase();
                     break;
                 default:
                     throw new IllegalStateException("Invalid value for selection.");
             }
         }
         while (selectedOption != enumMenuOptions.EXIT);
+    }
+
+    private void readFromDatabase() {
+        try {
+            transactionService.loadFromDb();
+        } catch (IOException e) {
+            view.showDbReadError();
+        }
+    }
+
+    private void writeToDatabase() {
+        try {
+            transactionService.storeToDb();
+        } catch (IOException e) {
+            view.showDbWriteError();
+        }
     }
 
     private void createTransaction() {
