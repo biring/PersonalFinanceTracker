@@ -11,7 +11,7 @@ public class CategoryDAO extends BaseDAO<CategoryModel> {
     public static final int NO_BUDGET = CategoryModel.NO_BUDGET;
 
     public CategoryDAO(){
-        super();
+        super(CategoryModel.class);
     }
 
     @Override
