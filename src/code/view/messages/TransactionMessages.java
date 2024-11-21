@@ -20,6 +20,8 @@ public class TransactionMessages {
     // WARNING_* for warning messages
     public static final String WARNING_INVALID_SELECTION = "Invalid selection.";
     public static final String WARNING_CSV_FILE_READ_FAILED = "CSV file read failed.";
+    public static final String WARNING_DB_READ_FAILED = "Transaction read from database failed.";
+    public static final String WARNING_DB_WRITE_FAILED = "Transaction write to Database failed.";
 
     // Prevent instantiation
     private TransactionMessages() {
