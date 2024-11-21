@@ -3,6 +3,7 @@ package view;
 import controller.MenuOption;
 import utility.Console;
 
+import java.io.IOException;
 import java.util.List;
 
 import static view.messages.CategoryMessages.TITLE_TABLE;
@@ -48,6 +49,14 @@ public class TransactionView extends BaseClass {
 
     public void showNoTransactionsFound() {
         Console.printMessage(INFO_NO_TRANSACTIONS_FOUND);
+    }
+
+    public void showDbReadError() {
+        Console.printMessage(WARNING_DB_READ_FAILED);
+    }
+
+    public void showDbWriteError() {
+        Console.printMessage(WARNING_DB_WRITE_FAILED);
     }
 
     public void showTransactions(List<String> transactions) {
