@@ -24,6 +24,7 @@ public class MainController extends BaseClass<MainView> {
 
     @Override
     public void start() {
+        transactionController.start();
     }
 
     // Method to start the application flow
