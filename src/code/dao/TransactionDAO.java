@@ -10,7 +10,7 @@ public class TransactionDAO extends BaseDAO<TransactionModel> {
     private final List<TransactionModel> transactions = super.items;
 
     public TransactionDAO(){
-        super();
+        super(TransactionModel.class);
     }
 
     @Override
