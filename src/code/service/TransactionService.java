@@ -2,6 +2,7 @@ package service;
 
 import dao.TransactionDAO;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,6 +44,14 @@ public class TransactionService {
                         + transaction.getName()
                 )
                 .toList();
+    }
+
+    public void loadFromDb() throws IOException {
+        transactionDAO.deserialize();
+    }
+
+    public void storeToDb() throws IOException {
+        transactionDAO.serialize();
     }
 
     public List<String> getAccounts() {
