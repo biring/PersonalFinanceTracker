@@ -60,6 +60,21 @@ public abstract class BaseDAO<T> {
         return items.removeIf(item -> extractID(item) == id);
     }
 
+    // Get name by ID
+    public String getNameById(int id) {
+        for (T item : items) {
+            if (extractID(item) == id) {
+                // Assuming the item has a getName() method
+                try {
+                    return (String) item.getClass().getMethod("getName").invoke(item);
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to get name by ID", e);
+                }
+            }
+        }
+        return null;
+    }
+
     // Abstract method to extract ID from an item
     protected abstract int extractID(T item);
 
