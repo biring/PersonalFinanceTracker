@@ -36,13 +36,15 @@ public class TransactionService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");  // Specify your desired format here
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);  // Format for USD currency (can change the locale)
         return transactionDAO.readAll().stream()
-                .map(transaction -> "["
-                        + transaction.getID() + "] (a/c :"
-                        + transaction.getAccountId() + ") "
-                        + dateFormat.format(transaction.getDate()) + " "
-                        + currencyFormat.format(transaction.getAmount()) + " "
-                        + transaction.getName()
-                )
+                .map(transaction -> {
+                    String accountName = accountService.getNameById(transaction.getAccountId());
+                    return "["
+                            + transaction.getID() + "] (a/c :"
+                            + accountName + ") "
+                            + dateFormat.format(transaction.getDate()) + " "
+                            + currencyFormat.format(transaction.getAmount()) + " "
+                            + transaction.getName();
+                })
                 .toList();
     }
 
