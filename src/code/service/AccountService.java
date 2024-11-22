@@ -60,5 +60,10 @@ public class AccountService {
     public boolean isAccountTypeValid(int idx) {
         return accountDAO.isAccountTypeValid(idx);
     }
+
+    // Get account name using account ID
+    protected String getNameById(int id) {
+        return accountDAO.getNameById(id);
+    }
 }
 
