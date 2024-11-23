@@ -60,6 +60,11 @@ public abstract class BaseDAO<T> {
         return items.removeIf(item -> extractID(item) == id);
     }
 
+    // Check if an item exists by ID
+    public boolean exists(int id) {
+        return items.stream().anyMatch(item -> extractID(item) == id);
+    }
+
     // Get name by ID
     public String getNameById(int id) {
         for (T item : items) {
