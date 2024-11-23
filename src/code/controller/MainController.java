@@ -26,6 +26,7 @@ public class MainController extends BaseClass<MainView> {
 
     @Override
     public void start() {
+        accountController.start();
         transactionController.start();
         linkController.start();
     }
@@ -61,6 +62,11 @@ public class MainController extends BaseClass<MainView> {
                     throw new IllegalStateException("Invalid value for selection.");
             }
         } while (selectedOption != MenuOptions.EXIT);
+    }
+
+    @Override
+    public void stop() {
+        accountController.stop();
     }
 
     private enum MenuOptions implements MenuOption {
