@@ -3,17 +3,19 @@ package controller;
 import dao.AccountDAO;
 import dao.CategoryDAO;
 import service.AccountService;
+import service.CategoryService;
 import view.MainView;
 
 public class MainController extends BaseClass<MainView> {
     private final AccountDAO accountDAO = new AccountDAO();
     private final CategoryDAO categoryDAO = new CategoryDAO();
     private final AccountService accountService = new AccountService(accountDAO);
+    private final CategoryService categoryService = new CategoryService(categoryDAO);
 
     private final AccountController accountController = new AccountController(accountService);
     private final CategoryController categoryController = new CategoryController(categoryDAO);
     private final BudgetController budgetController = new BudgetController(categoryDAO);
-    private final LinkController linkController = new LinkController();
+    private final LinkController linkController = new LinkController(categoryService);
     private final TransactionController transactionController = new TransactionController(accountService);
     private final ReportController reportController = new ReportController();
 
@@ -25,6 +27,7 @@ public class MainController extends BaseClass<MainView> {
     @Override
     public void start() {
         transactionController.start();
+        linkController.start();
     }
 
     // Method to start the application flow
