@@ -2,8 +2,10 @@ package dao;
 
 import utility.Json;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.reflect.TypeToken;
@@ -91,18 +93,29 @@ public abstract class BaseDAO<T> {
 
     // Deserialize the items list from a file
     public void deserialize() throws IOException {
-        Type typeOfT = TypeToken.getParameterized(List.class, this.type).getType();  // Use the correct type for List<TransactionModel>
-        List<T> deserializedItems = Json.readFromFile(this.getClass().getSimpleName(), typeOfT);
+        // Define the type of the list
+        Type typeOfT = TypeToken.getParameterized(List.class, this.type).getType();
 
-        if (deserializedItems != null) {
-            items.clear();
-            items.addAll(deserializedItems);
+        try {
+            // Read from file
+            List<T> deserializedItems = Json.readFromFile(this.type.getSimpleName(), typeOfT);
 
-            // Update nextID based on deserialized items
-            this.nextID = deserializedItems.stream()
-                    .mapToInt(this::extractID)
-                    .max()
-                    .orElse(0) + 1;
+            if (deserializedItems != null) {
+                items.clear();
+                items.addAll(deserializedItems);
+
+                // Update nextID
+                this.nextID = deserializedItems.stream()
+                        .mapToInt(this::extractID)
+                        .max()
+                        .orElse(0) + 1;
+
+                //System.out.println("Deserialization successful. Loaded " + items.size() + " items.");
+            } else {
+                // System.out.println("No items found during deserialization.");
+            }
+        } catch (Exception e) {
+            // System.err.println("Error during deserialization: " + e.getMessage());
         }
     }
 }
