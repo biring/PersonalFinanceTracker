@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuOption;
+import utility.Console;
 
 import java.util.List;
 
@@ -50,6 +51,14 @@ public class AccountView extends BaseClass {
 
     public void showAccountDeletionResult(boolean success) {
         super.displaySuccessFailureMessage(success, INFO_ACCOUNT_DELETED_SUCCESS, WARNING_ACCOUNT_DELETION_FAILED);
+    }
+
+    public void showDbReadError() {
+        Console.printMessage(WARNING_DB_READ_FAILED);
+    }
+
+    public void showDbWriteError() {
+        Console.printMessage(WARNING_DB_WRITE_FAILED);
     }
 }
 
