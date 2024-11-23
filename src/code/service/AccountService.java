@@ -2,6 +2,7 @@ package service;
 
 import dao.AccountDAO;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AccountService {
@@ -64,6 +65,14 @@ public class AccountService {
     // Get account name using account ID
     protected String getNameById(int id) {
         return accountDAO.getNameById(id);
+    }
+
+    public void loadFromDb() throws IOException {
+        accountDAO.deserialize();
+    }
+
+    public void storeToDb() throws IOException {
+        accountDAO.serialize();
     }
 }
 
