@@ -31,6 +31,16 @@ public class CategoryService {
         return categoryDAO.delete(id);
     }
 
+    // Get category name using ID
+    protected String getCategoryNameById(int id) {
+        return categoryDAO.getNameById(id);
+    }
+
+    public boolean isCategoryExists(int id) {
+        return categoryDAO.exists(id);
+    }
+
+
     public boolean isCategoryNameValid(String categoryName) {
         return (categoryName != null)
                 && (!categoryName.isEmpty())
