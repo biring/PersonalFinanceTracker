@@ -1,7 +1,7 @@
 package model;
 
 public class BaseModel {
-    protected int id;
+    protected final int id;
     protected String name;
 
     public BaseModel(int id, String name) {
