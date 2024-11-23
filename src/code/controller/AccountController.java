@@ -3,6 +3,7 @@ package controller;
 import service.AccountService;
 import view.AccountView;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AccountController extends BaseClass<AccountView> {
@@ -11,6 +12,10 @@ public class AccountController extends BaseClass<AccountView> {
     public AccountController(AccountService accountService) {
         super(new AccountView());
         this.accountService = accountService;
+    }
+
+    public void start(){
+        readFromDatabase();
     }
 
     // Method to start the application flow
@@ -32,13 +37,33 @@ public class AccountController extends BaseClass<AccountView> {
                     deleteAccount();
                     break;
                 case EXIT:
-                    System.out.println("Exit");
+                    writeToDatabase();
                     break;
                 default:
                     throw new IllegalStateException("Invalid value for selection.");
             }
         }
         while (selectedOption != enumMenuOptions.EXIT);
+    }
+
+    public void stop(){
+        writeToDatabase();
+    }
+
+    private void readFromDatabase() {
+        try {
+            accountService.loadFromDb();
+        } catch (IOException e) {
+            view.showDbReadError();
+        }
+    }
+
+    private void writeToDatabase() {
+        try {
+            accountService.storeToDb();
+        } catch (IOException e) {
+            view.showDbWriteError();
+        }
     }
 
     private void createAccount() {
