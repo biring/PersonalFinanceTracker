@@ -31,7 +31,8 @@ public class AccountMessages {
     public static final String WARNING_ACCOUNT_CREATION_FAILED = "Account creation failed.";
     public static final String WARNING_ACCOUNT_MODIFICATION_FAILED = "Account modification failed.";
     public static final String WARNING_ACCOUNT_DELETION_FAILED = "Account deletion failed.";
-
+    public static final String WARNING_DB_READ_FAILED = "Account read from database failed.";
+    public static final String WARNING_DB_WRITE_FAILED = "Account write to Database failed.";
     // ERROR_* for error messages
 
     // ACTION_STATUS_* for success/failure messages
