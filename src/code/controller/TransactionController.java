@@ -12,9 +12,9 @@ import java.util.List;
 public class TransactionController extends BaseClass<TransactionView> {
     private final TransactionService transactionService;
 
-    public TransactionController(AccountService accountService) {
+    public TransactionController(TransactionService transactionService) {
         super(new TransactionView());
-        this.transactionService = new TransactionService(accountService);
+        this.transactionService = transactionService;
     }
 
     public void start() {
