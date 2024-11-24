@@ -1,6 +1,5 @@
 package controller;
 
-import dao.CategoryDAO;
 import service.BudgetService;
 import service.CategoryService;
 import view.BudgetView;
@@ -16,7 +15,8 @@ public class BudgetController extends BaseClass<BudgetView> {
         this.budgetService = new BudgetService(categoryService);
     }
 
-    // Method to start the application flow
+    public void start() {
+    }
 
 
     public void run() {
@@ -37,13 +37,15 @@ public class BudgetController extends BaseClass<BudgetView> {
                     deleteBudget();
                     break;
                 case EXIT:
-                    System.out.println("Exit");
                     break;
                 default:
                     throw new IllegalStateException("Invalid value for selection.");
             }
         }
         while (selectedOption != enumMenuOptions.EXIT);
+    }
+
+    public void stop() {
     }
 
     private void createBudget() {
