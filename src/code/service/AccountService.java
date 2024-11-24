@@ -1,6 +1,7 @@
 package service;
 
 import dao.AccountDAO;
+import dao.TransactionDAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,9 +12,11 @@ public class AccountService {
     private static final int MAX_ACCOUNT_NAME_LENGTH = 20;
 
     private final AccountDAO accountDAO;
+    private final TransactionDAO transactionDAO;
 
-    public AccountService(AccountDAO accountDAO) {
+    public AccountService(AccountDAO accountDAO, TransactionDAO transactionDAO) {
         this.accountDAO = accountDAO;
+        this.transactionDAO = transactionDAO;
     }
 
 
@@ -27,7 +30,9 @@ public class AccountService {
     }
 
     public boolean deleteAccount(int id) {
-        return accountDAO.delete(id);
+        boolean success = accountDAO.delete(id);
+        success = success && transactionDAO.deleteTransactionsByAccountId(id);
+        return success;
     }
 
     public List<String> showAccounts() {
