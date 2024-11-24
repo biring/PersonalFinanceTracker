@@ -1,7 +1,6 @@
 package controller;
 
 import dao.AccountDAO;
-import dao.CategoryDAO;
 import service.AccountService;
 import service.CategoryService;
 import view.MainView;
@@ -23,7 +22,6 @@ public class MainController extends BaseClass<MainView> {
         super(new MainView());
     }
 
-    @Override
     public void start() {
         accountController.start();
         categoryController.start();
@@ -31,8 +29,6 @@ public class MainController extends BaseClass<MainView> {
         linkController.start();
     }
 
-    // Method to start the application flow
-    @Override
     public void run() {
         MenuOptions selectedOption;
         do {
@@ -64,10 +60,11 @@ public class MainController extends BaseClass<MainView> {
         } while (selectedOption != MenuOptions.EXIT);
     }
 
-    @Override
     public void stop() {
         accountController.stop();
         categoryController.stop();
+        transactionController.stop();
+        linkController.stop();
     }
 
     private enum MenuOptions implements MenuOption {
