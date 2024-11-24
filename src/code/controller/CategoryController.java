@@ -1,6 +1,5 @@
 package controller;
 
-import dao.CategoryDAO;
 import service.CategoryService;
 import view.CategoryView;
 
@@ -20,7 +19,6 @@ public class CategoryController extends BaseClass<CategoryView> {
         readFromDatabase();
     }
 
-    // Method to start the application flow
     public void run() {
         enumMenuOptions selectedOption;
         do {
