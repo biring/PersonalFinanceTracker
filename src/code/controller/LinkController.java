@@ -34,6 +34,9 @@ public class LinkController extends BaseClass<LinkView> {
                 case VIEW:
                     viewLink();
                     break;
+                case SHOW:
+                    showLinkedTransactions();
+                    break;
                 case DELETE:
                     deleteLink();
                     break;
@@ -114,6 +117,17 @@ public class LinkController extends BaseClass<LinkView> {
         }
     }
 
+    private void showLinkedTransactions(){
+        List<String> links = linkService.showLinks();
+        if (links.isEmpty()) {
+            view.showNoLinksAvailable();
+            return;
+        }
+        int linkId = getLinkSelection();
+        String linkName = linkService.getLinkName(linkId);
+        showTransactionsMatchingLink(linkName);
+    }
+
     private int getCategorySelection() {
         List<String> categories = linkService.showCategories();
         boolean isValidCategory;
@@ -158,6 +172,7 @@ public class LinkController extends BaseClass<LinkView> {
         CREATE("Create Link"),
         MODIFY("Modify Link"),
         VIEW("View Link"),
+        SHOW("Show linked transactions"),
         DELETE("Delete Link"),
         EXIT("Exit");
 
