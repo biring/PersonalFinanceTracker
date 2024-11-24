@@ -1,6 +1,7 @@
 package service;
 
 import dao.CategoryDAO;
+import dao.LinkDAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,9 +10,12 @@ public class CategoryService {
 
     public static final int NO_BUDGET = CategoryDAO.NO_BUDGET;
 
-    private final CategoryDAO categoryDAO = new CategoryDAO();
+    private final CategoryDAO categoryDAO;
+    private final LinkDAO linkDAO;
 
-    public CategoryService() {;
+    public CategoryService(CategoryDAO categoryDAO, LinkDAO linkDAO) {
+        this.categoryDAO = categoryDAO;
+        this.linkDAO = linkDAO;
     }
 
     public boolean createCategory(String name) {
@@ -30,7 +34,9 @@ public class CategoryService {
     }
 
     public boolean deleteCategory(int id) {
-        return categoryDAO.delete(id);
+        boolean result = categoryDAO.delete(id);
+        result &= linkDAO.deleteLinksByCategoryId(id);
+        return result;
     }
 
     // Get category name using ID
