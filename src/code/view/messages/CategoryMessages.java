@@ -19,6 +19,8 @@ public class CategoryMessages {
     public static final String WARNING_CREATION_FAILED = "Category creation failed.";
     public static final String WARNING_MODIFICATION_FAILED = "Category modification failed.";
     public static final String WARNING_DELETION_FAILED = "Category deletion failed.";
+    public static final String WARNING_DB_READ_FAILED = "Category read from database failed.";
+    public static final String WARNING_DB_WRITE_FAILED = "Category write to Database failed.";
 
     // Prevent instantiation
     private CategoryMessages() {
