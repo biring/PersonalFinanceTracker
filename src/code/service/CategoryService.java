@@ -2,6 +2,7 @@ package service;
 
 import dao.CategoryDAO;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CategoryService {
@@ -85,5 +86,13 @@ public class CategoryService {
         } catch (NullPointerException e) {
             return false;
         }
+    }
+
+    public void loadFromDb() throws IOException {
+        categoryDAO.deserialize();
+    }
+
+    public void storeToDb() throws IOException {
+        categoryDAO.serialize();
     }
 }
