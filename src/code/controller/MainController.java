@@ -1,20 +1,25 @@
 package controller;
 
 import dao.AccountDAO;
+import dao.TransactionDAO;
 import service.AccountService;
 import service.CategoryService;
+import service.TransactionService;
 import view.MainView;
 
 public class MainController extends BaseClass<MainView> {
     private final AccountDAO accountDAO = new AccountDAO();
-    private final AccountService accountService = new AccountService(accountDAO);
+    private final TransactionDAO transactionDAO = new TransactionDAO();
+
+    private final AccountService accountService = new AccountService(accountDAO, transactionDAO);
     private final CategoryService categoryService = new CategoryService();
+    private final TransactionService transactionService = new TransactionService(accountDAO, transactionDAO);
 
     private final AccountController accountController = new AccountController(accountService);
     private final CategoryController categoryController = new CategoryController(categoryService);
     private final BudgetController budgetController = new BudgetController(categoryService);
     private final LinkController linkController = new LinkController(categoryService);
-    private final TransactionController transactionController = new TransactionController(accountService);
+    private final TransactionController transactionController = new TransactionController(transactionService);
     private final ReportController reportController = new ReportController();
 
     // Constructor to initialize the shared Scanner object
