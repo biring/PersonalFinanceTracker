@@ -75,6 +75,8 @@ public class LinkController extends BaseClass<LinkView> {
             String linkName = getLinkString();
             boolean success = linkService.createLink(linkName, categoryId);
             view.showCreationResult(success);
+            List<String> transactions = linkService.getTransactionsMatchingLink(linkName);
+            view.showLinks(transactions);
         }
     }
 
