@@ -8,13 +8,12 @@ import view.MainView;
 
 public class MainController extends BaseClass<MainView> {
     private final AccountDAO accountDAO = new AccountDAO();
-    private final CategoryDAO categoryDAO = new CategoryDAO();
     private final AccountService accountService = new AccountService(accountDAO);
-    private final CategoryService categoryService = new CategoryService(categoryDAO);
+    private final CategoryService categoryService = new CategoryService();
 
     private final AccountController accountController = new AccountController(accountService);
-    private final CategoryController categoryController = new CategoryController(categoryDAO);
-    private final BudgetController budgetController = new BudgetController(categoryDAO);
+    private final CategoryController categoryController = new CategoryController(categoryService);
+    private final BudgetController budgetController = new BudgetController(categoryService);
     private final LinkController linkController = new LinkController(categoryService);
     private final TransactionController transactionController = new TransactionController(accountService);
     private final ReportController reportController = new ReportController();
