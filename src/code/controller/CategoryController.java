@@ -4,6 +4,7 @@ import dao.CategoryDAO;
 import service.CategoryService;
 import view.CategoryView;
 
+import java.io.IOException;
 import java.util.List;
 
 public class CategoryController extends BaseClass<CategoryView> {
@@ -13,6 +14,10 @@ public class CategoryController extends BaseClass<CategoryView> {
     public CategoryController(CategoryService categoryService) {
         super(new CategoryView());
         this.categoryService = categoryService;
+    }
+
+    public void start() {
+        readFromDatabase();
     }
 
     // Method to start the application flow
@@ -34,13 +39,33 @@ public class CategoryController extends BaseClass<CategoryView> {
                     deleteCategory();
                     break;
                 case EXIT:
-                    System.out.println("Exit");
+                    writeToDatabase();
                     break;
                 default:
                     throw new IllegalStateException("Invalid value for selection.");
             }
         }
         while (selectedOption != enumMenuOptions.EXIT);
+    }
+
+    public void stop() {
+        writeToDatabase();
+    }
+
+    private void readFromDatabase() {
+        try {
+            categoryService.loadFromDb();
+        } catch (IOException e) {
+            view.showDbReadError();
+        }
+    }
+
+    private void writeToDatabase() {
+        try {
+            categoryService.storeToDb();
+        } catch (IOException e) {
+            view.showDbWriteError();
+        }
     }
 
     private void createCategory() {
