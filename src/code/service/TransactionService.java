@@ -1,5 +1,6 @@
 package service;
 
+import dao.AccountDAO;
 import dao.TransactionDAO;
 
 import java.io.IOException;
@@ -11,11 +12,12 @@ import java.util.Locale;
 
 public class TransactionService {
 
-    private final AccountService accountService;
-    private final TransactionDAO transactionDAO = new TransactionDAO();
+    private final AccountDAO accountDAO;
+    private final TransactionDAO transactionDAO;
 
-    public TransactionService(AccountService accountService) {
-        this.accountService = accountService;
+    public TransactionService(AccountDAO accountDAO, TransactionDAO transactionDAO) {
+        this.accountDAO = accountDAO;
+        this.transactionDAO = transactionDAO;
     }
 
     public boolean createTransactions(int accountId, List<String[]> data) {
@@ -37,7 +39,7 @@ public class TransactionService {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);  // Format for USD currency (can change the locale)
         return transactionDAO.readAll().stream()
                 .map(transaction -> {
-                    String accountName = accountService.getNameById(transaction.getAccountId());
+                    String accountName = accountDAO.getNameById(transaction.getAccountId());
                     return "["
                             + transaction.getID() + "] (a/c :"
                             + accountName + ") "
@@ -57,11 +59,13 @@ public class TransactionService {
     }
 
     public List<String> getAccounts() {
-        return accountService.showAccounts();
+        return accountDAO.readAll().stream()
+                .map(account -> "[" + account.getID() + "] " + account.getName()+ " (" + account.getAccountType() + ")")
+                .toList();
     }
 
     public boolean isValidAccountId(int accountId) {
-        return accountService.isValidAccountId(accountId);
+        return accountDAO.isValidAccountId(accountId);
     }
 
     private Date parseDate(String date) {
