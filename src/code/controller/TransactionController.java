@@ -50,6 +50,10 @@ public class TransactionController extends BaseClass<TransactionView> {
         while (selectedOption != enumMenuOptions.EXIT);
     }
 
+    public void stop(){
+        writeToDatabase();
+    }
+
     private void readFromDatabase() {
         try {
             transactionService.loadFromDb();
