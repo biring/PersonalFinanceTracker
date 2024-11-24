@@ -75,21 +75,22 @@ public class LinkController extends BaseClass<LinkView> {
             String linkName = getLinkString();
             boolean success = linkService.createLink(linkName, categoryId);
             view.showCreationResult(success);
-            List<String> transactions = linkService.getTransactionsMatchingLink(linkName);
-            view.showLinks(transactions);
+            showTransactionsMatchingLink(linkName);
         }
     }
 
     private void modifyLink() {
-        if (linkService.showLinks().isEmpty()) {
+        List<String> links = linkService.showLinks();
+        if (links.isEmpty()) {
             view.showNoLinksAvailable();
+            return;
         }
-        else {
-            int linkId = getLinkSelection();
-            String linkName = getLinkString();
-            boolean success = linkService.updateLink(linkId, linkName);
-            view.showModificationResult(success);
-        }
+
+        int linkId = getLinkSelection();
+        String linkName = getLinkString();
+        boolean success = linkService.updateLink(linkId, linkName);
+        view.showModificationResult(success);
+        showTransactionsMatchingLink(linkName);
     }
 
     private void viewLink() {
@@ -146,6 +147,11 @@ public class LinkController extends BaseClass<LinkView> {
             view.showLinkValidationResult(isValidLink);
         } while (!isValidLink);
         return linkString;
+    }
+
+    private void showTransactionsMatchingLink(String linkName) {
+        List<String> transactions = linkService.getTransactionsMatchingLink(linkName);
+        view.showLinks(transactions);
     }
 
     private enum enumMenuOptions implements MenuOption {
