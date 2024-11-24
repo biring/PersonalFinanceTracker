@@ -18,7 +18,7 @@ public class MainController extends BaseClass<MainView> {
 
     private final AccountService accountService = new AccountService(accountDAO, transactionDAO);
     private final CategoryService categoryService = new CategoryService(categoryDAO, linkDAO);
-    private final LinkService linkService = new LinkService(categoryDAO, linkDAO);
+    private final LinkService linkService = new LinkService(categoryDAO, linkDAO, transactionDAO);
     private final TransactionService transactionService = new TransactionService(accountDAO, transactionDAO);
 
     private final AccountController accountController = new AccountController(accountService);
