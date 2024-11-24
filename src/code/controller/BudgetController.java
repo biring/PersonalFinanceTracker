@@ -2,6 +2,7 @@ package controller;
 
 import dao.CategoryDAO;
 import service.BudgetService;
+import service.CategoryService;
 import view.BudgetView;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public class BudgetController extends BaseClass<BudgetView> {
 
     private final BudgetService budgetService;
 
-    public BudgetController(CategoryDAO categoryDAO) {
+    public BudgetController(CategoryService categoryService) {
         super(new BudgetView());
-        this.budgetService = new BudgetService(categoryDAO);
+        this.budgetService = new BudgetService(categoryService);
     }
 
     // Method to start the application flow
