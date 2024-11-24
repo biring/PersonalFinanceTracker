@@ -26,6 +26,7 @@ public class MainController extends BaseClass<MainView> {
     @Override
     public void start() {
         accountController.start();
+        categoryController.start();
         transactionController.start();
         linkController.start();
     }
@@ -66,6 +67,7 @@ public class MainController extends BaseClass<MainView> {
     @Override
     public void stop() {
         accountController.stop();
+        categoryController.stop();
     }
 
     private enum MenuOptions implements MenuOption {
