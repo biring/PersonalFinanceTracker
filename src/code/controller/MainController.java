@@ -1,24 +1,30 @@
 package controller;
 
 import dao.AccountDAO;
+import dao.CategoryDAO;
+import dao.LinkDAO;
 import dao.TransactionDAO;
 import service.AccountService;
 import service.CategoryService;
+import service.LinkService;
 import service.TransactionService;
 import view.MainView;
 
 public class MainController extends BaseClass<MainView> {
     private final AccountDAO accountDAO = new AccountDAO();
+    private final CategoryDAO categoryDAO = new CategoryDAO();
+    private final LinkDAO linkDAO = new LinkDAO();
     private final TransactionDAO transactionDAO = new TransactionDAO();
 
     private final AccountService accountService = new AccountService(accountDAO, transactionDAO);
-    private final CategoryService categoryService = new CategoryService();
+    private final CategoryService categoryService = new CategoryService(categoryDAO, linkDAO);
+    private final LinkService linkService = new LinkService(categoryDAO, linkDAO);
     private final TransactionService transactionService = new TransactionService(accountDAO, transactionDAO);
 
     private final AccountController accountController = new AccountController(accountService);
     private final CategoryController categoryController = new CategoryController(categoryService);
     private final BudgetController budgetController = new BudgetController(categoryService);
-    private final LinkController linkController = new LinkController(categoryService);
+    private final LinkController linkController = new LinkController(linkService);
     private final TransactionController transactionController = new TransactionController(transactionService);
     private final ReportController reportController = new ReportController();
 
