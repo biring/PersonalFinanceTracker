@@ -2,6 +2,7 @@ package service;
 
 import dao.CategoryDAO;
 import dao.LinkDAO;
+import dao.TransactionDAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,11 +11,13 @@ public class LinkService {
 
     private final CategoryDAO categoryDAO;
     private final LinkDAO linkDAO;
+    private final TransactionDAO transactionDAO;
 
 
-    public LinkService(CategoryDAO categoryDAO, LinkDAO linkDAO) {
+    public LinkService(CategoryDAO categoryDAO, LinkDAO linkDAO, TransactionDAO transactionDAO) {
         this.categoryDAO = categoryDAO;
         this.linkDAO = linkDAO;
+        this.transactionDAO = transactionDAO;
     }
 
     public boolean createLink(String name, int categoryId) {
@@ -80,5 +83,9 @@ public class LinkService {
         return (linkName != null)
                 && (!linkName.isEmpty())
                 && (!linkDAO.isLinkNameExists(linkName));
+    }
+
+    public List<String> getTransactionsMatchingLink(String linkName) {
+        return transactionDAO.getTransactionsMatchingString(linkName);
     }
 }
