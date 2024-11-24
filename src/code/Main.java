@@ -22,5 +22,6 @@ public class Main {
         // Call a method on the controller to kick off the application logic
         mainController.start();
         mainController.run();
+        mainController.stop();
     }
 }
