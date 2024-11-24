@@ -34,6 +34,16 @@ public class LinkDAO extends BaseDAO<LinkModel> {
         return false;
     }
 
+    // Delete a link by category ID
+    public boolean deleteLinksByCategoryId(int categoryId) {
+        try {
+            links.removeIf(link -> link.getCategoryId() == categoryId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     // Check if link name exists
     public boolean isLinkNameExists(String name) {
         for (LinkModel link : links) {
