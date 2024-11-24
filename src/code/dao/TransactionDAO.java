@@ -24,6 +24,15 @@ public class TransactionDAO extends BaseDAO<TransactionModel> {
         return createItem(transaction);
     }
 
+    // Delete a transaction by account ID
+    public boolean deleteTransactionsByAccountId(int accountId) {
+        try {
+            transactions.removeIf(transaction -> transaction.getAccountId() == accountId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     // Check if a transaction exists
     public boolean isValidTransactionId(int id) {
