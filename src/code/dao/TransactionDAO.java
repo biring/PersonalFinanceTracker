@@ -34,6 +34,14 @@ public class TransactionDAO extends BaseDAO<TransactionModel> {
         }
     }
 
+    // get transactions with name containing the search string
+    public List<String> getTransactionsMatchingString(String searchString) {
+        return transactions.stream()
+                .filter(transaction -> transaction.getName().toLowerCase().contains(searchString.toLowerCase()))
+                .map(TransactionModel::toString)
+                .toList();
+    }
+
     // Check if a transaction exists
     public boolean isValidTransactionId(int id) {
         if (transactions == null) {
