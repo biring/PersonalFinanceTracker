@@ -11,9 +11,9 @@ public class LinkController extends BaseClass<LinkView> {
 
     private final LinkService linkService;
 
-    public LinkController (CategoryService categoryService) {
+    public LinkController (LinkService linkService) {
         super(new LinkView());
-        this.linkService = new LinkService(categoryService);
+        this.linkService = linkService;
     }
 
     public void start() {
