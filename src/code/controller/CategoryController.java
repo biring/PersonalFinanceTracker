@@ -10,9 +10,9 @@ public class CategoryController extends BaseClass<CategoryView> {
 
     private final CategoryService categoryService;
 
-    public CategoryController(CategoryDAO categoryDAO) {
+    public CategoryController(CategoryService categoryService) {
         super(new CategoryView());
-        this.categoryService = new CategoryService(categoryDAO);
+        this.categoryService = categoryService;
     }
 
     // Method to start the application flow
