@@ -1,5 +1,6 @@
 package service;
 
+import dao.CategoryDAO;
 import dao.LinkDAO;
 
 import java.io.IOException;
@@ -7,11 +8,13 @@ import java.util.List;
 
 public class LinkService {
 
-    private final LinkDAO linkDAO = new LinkDAO();
-    private final CategoryService categoryService;
+    private final CategoryDAO categoryDAO;
+    private final LinkDAO linkDAO;
 
-    public LinkService(CategoryService categoryService) {
-        this.categoryService = categoryService;
+
+    public LinkService(CategoryDAO categoryDAO, LinkDAO linkDAO) {
+        this.categoryDAO = categoryDAO;
+        this.linkDAO = linkDAO;
     }
 
     public boolean createLink(String name, int categoryId) {
@@ -26,7 +29,7 @@ public class LinkService {
     public List<String> showLinks() {
         return linkDAO.readAll().stream()
                 .map(link -> {
-                    String categoryName = categoryService.getCategoryNameById(link.getCategoryId());
+                    String categoryName = categoryDAO.getNameById(link.getCategoryId());
                     return "["
                             + link.getID() + "] "
                             + link.getName() + " (category: "
@@ -64,11 +67,13 @@ public class LinkService {
     }
 
     public List<String> showCategories() {
-        return categoryService.showCategories();
+        return categoryDAO.readAll().stream()
+                .map(category -> "[" + category.getID() + "] " + category.getName())
+                .toList();
     }
 
     public boolean isCategoryExists(int categoryId) {
-        return categoryService.isCategoryExists(categoryId);
+        return categoryDAO.exists(categoryId);
     }
 
     public boolean isLinkStringValid(String linkName) {
