@@ -69,6 +69,10 @@ public class LinkService {
         return linkDAO.exists(id);
     }
 
+    public String getLinkName(int id) {
+        return linkDAO.getNameById(id);
+    }
+
     public List<String> showCategories() {
         return categoryDAO.readAll().stream()
                 .map(category -> "[" + category.getID() + "] " + category.getName())
