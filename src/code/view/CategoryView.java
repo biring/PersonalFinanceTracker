@@ -1,6 +1,7 @@
 package view;
 
 import controller.MenuOption;
+import utility.Console;
 
 import java.util.List;
 
@@ -42,5 +43,13 @@ public class CategoryView extends BaseClass {
 
     public void showCategoryDeletionResult(boolean success) {
         super.displaySuccessFailureMessage(success, INFO_DELETION_SUCCESS, WARNING_DELETION_FAILED);
+    }
+
+    public void showDbReadError() {
+        Console.printMessage(WARNING_DB_READ_FAILED);
+    }
+
+    public void showDbWriteError() {
+        Console.printMessage(WARNING_DB_WRITE_FAILED);
     }
 }
