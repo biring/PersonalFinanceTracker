@@ -5,6 +5,7 @@ import dao.LinkDAO;
 import dao.TransactionDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LinkService {
@@ -91,5 +92,24 @@ public class LinkService {
 
     public List<String> getTransactionsMatchingLink(String linkName) {
         return transactionDAO.getTransactionsMatchingString(linkName);
+    }
+
+    // get unlinked transactions
+    public List<String> getUnlinkedTransactions() {
+        List<Integer> transactionIds = transactionDAO.getIDs();
+        List<String> linkStrings = linkDAO.getLinkNames();
+        for (Integer transactionId : transactionIds) {
+            for (String linkString : linkStrings) {
+                if (transactionDAO.getNameById(transactionId).contains(linkString)) {
+                    // remove transactionId when link is found in transaction name
+                    transactionIds.remove(transactionId);
+                }
+            }
+        }
+        return transactionIds.stream()
+                .map(transactionDAO::getNameById)
+                .distinct()
+                .sorted()
+                .toList();
     }
 }
