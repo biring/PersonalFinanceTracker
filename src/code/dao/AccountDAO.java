@@ -19,6 +19,27 @@ public class AccountDAO extends BaseDAO<AccountModel> {
         return account.getID();
     }
 
+    public List<Integer> getIDs() {
+        List<Integer> ids = new ArrayList<>();
+        for (AccountModel account : accounts) {
+            ids.add(account.getID());
+        }
+        return ids;
+    }
+
+    // Get account type by ID
+    public AccountType getTypeById(int id) {
+        try {
+            return accounts.stream()
+                    .filter(account -> account.getID() == id)
+                    .findFirst()
+                    .map(AccountModel::getAccountType)
+                    .orElseThrow(() -> new IndexOutOfBoundsException("Account ID not found"));
+        } catch (Exception e) {
+            throw new IndexOutOfBoundsException("Account ID not found");
+        }
+    }
+
     // Create a new account
     public boolean create(int id, String name, int typeIndex) {
         AccountType type = AccountType.values()[typeIndex];
