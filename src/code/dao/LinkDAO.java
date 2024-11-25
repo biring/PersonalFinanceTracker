@@ -53,4 +53,11 @@ public class LinkDAO extends BaseDAO<LinkModel> {
         }
         return false;
     }
+
+    // get all names of links
+    public List<String> getLinkNames() {
+        return links.stream()
+                .map(LinkModel::getName)
+                .toList();
+    }
 }
