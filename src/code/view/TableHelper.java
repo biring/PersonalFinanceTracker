@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TableHelper {
+
     private final Scanner scanner;
+
+    public final String NO_DATA_FOUND = "No data found.";
 
     public TableHelper(Scanner scanner) {
         this.scanner = scanner;
@@ -24,11 +27,15 @@ public class TableHelper {
     }
 
     public final void displayTableTitle(String title) {
-        String text = "\n---" + title + "---";
+        String text = "\n--- " + title + " ---";
         Console.printMessage(text);
     }
 
     protected final void displayTableData(List<String> data) {
+        if (data.isEmpty()) {
+            Console.printMessage(NO_DATA_FOUND);
+            return;
+        }
         for (String row : data) {
             Console.printMessage(row);
         }
