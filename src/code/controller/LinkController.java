@@ -1,6 +1,5 @@
 package controller;
 
-import service.CategoryService;
 import service.LinkService;
 import view.LinkView;
 
@@ -34,8 +33,11 @@ public class LinkController extends BaseClass<LinkView> {
                 case VIEW:
                     viewLink();
                     break;
-                case SHOW:
+                case LINKED:
                     showLinkedTransactions();
+                    break;
+                case UNLINKED:
+                    showUnLinkedTransactions();
                     break;
                 case DELETE:
                     deleteLink();
@@ -128,6 +130,11 @@ public class LinkController extends BaseClass<LinkView> {
         showTransactionsMatchingLink(linkName);
     }
 
+    private void showUnLinkedTransactions(){
+        List<String> transactions = linkService.getUnlinkedTransactions();
+        view.showLinks(transactions);
+    }
+
     private int getCategorySelection() {
         List<String> categories = linkService.showCategories();
         boolean isValidCategory;
@@ -172,7 +179,8 @@ public class LinkController extends BaseClass<LinkView> {
         CREATE("Create Link"),
         MODIFY("Modify Link"),
         VIEW("View Link"),
-        SHOW("Show linked transactions"),
+        LINKED("View linked transactions"),
+        UNLINKED("View unlinked transactions"),
         DELETE("Delete Link"),
         EXIT("Exit");
 
