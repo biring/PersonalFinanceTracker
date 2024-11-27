@@ -98,15 +98,20 @@ public class LinkService {
     public List<String> getUnlinkedTransactions() {
         List<Integer> transactionIds = transactionDAO.getIDs();
         List<String> linkStrings = linkDAO.getLinkNames();
+        List<Integer> unlinkedTransactions = new ArrayList<>();
         for (Integer transactionId : transactionIds) {
+            boolean isUnlinked = true;
             for (String linkString : linkStrings) {
                 if (transactionDAO.getNameById(transactionId).contains(linkString)) {
-                    // remove transactionId when link is found in transaction name
-                    transactionIds.remove(transactionId);
+                    isUnlinked = false;
+                    break;
                 }
             }
+            if (isUnlinked) {
+                unlinkedTransactions.add(transactionId);
+            }
         }
-        return transactionIds.stream()
+        return unlinkedTransactions.stream()
                 .map(transactionDAO::getNameById)
                 .distinct()
                 .sorted()
