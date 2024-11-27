@@ -1,7 +1,9 @@
 package dao;
 
+import model.AccountModel;
 import model.CategoryModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO extends BaseDAO<CategoryModel> {
@@ -17,6 +19,14 @@ public class CategoryDAO extends BaseDAO<CategoryModel> {
     @Override
     protected int extractID(CategoryModel category) {
         return category.getID();
+    }
+
+    public List<Integer> getIDs() {
+        List<Integer> ids = new ArrayList<>();
+        for (CategoryModel category : catagories) {
+            ids.add(category.getID());
+        }
+        return ids;
     }
 
     // Create a new category
@@ -54,5 +64,18 @@ public class CategoryDAO extends BaseDAO<CategoryModel> {
             }
         }
         return false;
+    }
+
+    // Get category budget by ID
+    public int getBudgetById(int id) {
+        try {
+            return catagories.stream()
+                    .filter(category -> category.getID() == id)
+                    .findFirst()
+                    .map(CategoryModel::getCategoryBudget)
+                    .orElseThrow(() -> new IndexOutOfBoundsException("Category ID not found"));
+        } catch (Exception e) {
+            throw new IndexOutOfBoundsException("Category ID not found");
+        }
     }
 }
