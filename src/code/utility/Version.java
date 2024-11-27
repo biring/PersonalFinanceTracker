@@ -12,12 +12,12 @@ package utility;
 public class Version {
 
     private static final int major = 0;
-    private static final int minor = 0;
+    private static final int minor = 1;
     private static final int patch = 0;
     private static final int build = 0;
     private static final String versionFormat = "Version %d.%d.%d Build %d";
 
-    // Constructor prevents instantiation of the Version class. Version is constant.
+    // Constructor prevents instantiation of the Version class.
     private Version() {
         throw new UnsupportedOperationException("Cannot instantiate Version class.");
     }
