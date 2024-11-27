@@ -1,6 +1,5 @@
 package dao;
 
-import model.AccountModel;
 import model.TransactionModel;
 
 import java.util.ArrayList;
@@ -77,6 +76,41 @@ public class TransactionDAO extends BaseDAO<TransactionModel> {
                 .map(TransactionModel::toString)
                 .toList();
     }
+
+    // Get calendar days of transaction history
+    public int getDaysOfHistory() {
+        // get minimum date
+        Date minDate = transactions.stream()
+                .map(TransactionModel::getDate)
+                .min(Date::compareTo)
+                .orElse(new Date());
+        // get maximum date
+        Date maxDate = transactions.stream()
+                .map(TransactionModel::getDate)
+                .max(Date::compareTo)
+                .orElse(new Date());
+        // get difference in days
+        int DaysOfHistory = (int) ((maxDate.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24));
+        if (DaysOfHistory < 0) {
+            return 0;
+        }
+        return DaysOfHistory;
+    }
+
+    public long getMinDate() {
+        return transactions.stream()
+                .map(TransactionModel::getDate)
+                .min(Date::compareTo)
+                .orElse(new Date()).getTime();
+    }
+
+    public long getMaxDate() {
+        return transactions.stream()
+                .map(TransactionModel::getDate)
+                .max(Date::compareTo)
+                .orElse(new Date()).getTime();
+    }
+
 
     // Check if a transaction exists
     public boolean isValidTransactionId(int id) {
