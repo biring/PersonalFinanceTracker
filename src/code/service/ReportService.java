@@ -17,7 +17,6 @@ public class ReportService {
     private final LinkDAO linkDAO;
     private final TransactionDAO transactionDAO;
 
-
     public ReportService(AccountDAO accountDAO, CategoryDAO categoryDAO, LinkDAO linkDAO, TransactionDAO transactionDAO) {
         this.accountDAO = accountDAO;
         this.categoryDAO = categoryDAO;
@@ -66,7 +65,91 @@ public class ReportService {
 
     public List<String> getBudgetReport() {
         List<String> report = new ArrayList<>();
+        report.add(generateBudgetReportHeader());
+        List<Integer> categoryIds = categoryDAO.getIDs();
+        for (Integer categoryId : categoryIds) {
+            String categoryName = categoryDAO.getNameById(categoryId);
+            double budget = categoryDAO.getBudgetById(categoryId);
+            double total = getTotalExpenseForCategory(categoryId);
+            double actual = calculateMonthlyAverageExpense(total);
+            String status = getStatus(budget, actual);
+            report.add(addCategoryReportDataLine(categoryName, budget, actual, status));
+        }
         return report;
     }
 
+    private double getTotalExpenseForCategory(int categoryId) {
+        double actual = 0;
+        List<Integer> linkIds = linkDAO.getLinkIDsForCategory(categoryId);
+        actual = 0;
+        for (Integer linkId : linkIds) {
+            List<Integer> transactionIds = transactionDAO.getIDs();
+            for (Integer transactionId : transactionIds) {
+                String transactionName = transactionDAO.getNameById(transactionId);
+                String linkName = linkDAO.getNameById(linkId);
+                if (transactionName.toLowerCase().contains(linkName.toLowerCase())) {
+                    actual += transactionDAO.getAmount(transactionId);
+                }
+            }
+        }
+        return actual;
+    }
+
+
+    private double getDaysOfHistory() {
+        long min = transactionDAO.getMinDate();
+        long max = transactionDAO.getMaxDate();
+
+        long days = 0;
+        try {
+            days = (max - min) / (1000 * 60 * 60 * 24);
+        } catch (Exception e) {
+            return 0;
+        }
+        return (double) days;
+    }
+
+    private double calculateMonthlyAverageExpense(double expense) {
+        try {
+            expense = (expense / getDaysOfHistory()) * 30;
+        } catch (ArithmeticException e) {
+            return -1;
+        }
+        return expense;
+    }
+
+    private String getStatus(double budget, double actual) {
+        final String STATUS_OK = "OK";
+        final String STATUS_OVER = "OVER";
+        final String STATUS_NA = "N/A";
+        if (budget == 0) {
+            return STATUS_NA;
+        } else if (Math.abs(actual) > budget) {
+            return STATUS_OVER;
+        } else {
+            return STATUS_OK;
+        }
+    }
+
+    private String generateBudgetReportHeader() {
+        String BUDGET_REPORT_COLUMN_1 = "[Category]";
+        String BUDGET_REPORT_COLUMN_2 = "[Budget/Month]";
+        String BUDGET_REPORT_COLUMN_3 = "[Actual/Month]";
+        String BUDGET_REPORT_COLUMN_4 = "[Status]";
+        String BUDGET_REPORT_HEADER_FORMAT = "%-30s%-21s%-21s%-15s"; // 1 more to account for the $ sign
+        return String.format(
+                BUDGET_REPORT_HEADER_FORMAT,
+                BUDGET_REPORT_COLUMN_1,
+                BUDGET_REPORT_COLUMN_2,
+                BUDGET_REPORT_COLUMN_3,
+                BUDGET_REPORT_COLUMN_4);
+    }
+
+
+    private String addCategoryReportDataLine(String categoryName, double budget, double actual, String status) {
+        String BUDGET_REPORT_LINE_FORMAT = "%-30s$%-20.0f$%-20.0f%-15s";
+        return String.format(
+                BUDGET_REPORT_LINE_FORMAT,
+                categoryName, budget, actual, status);
+    }
 }
