@@ -1,7 +1,9 @@
 package dao;
 
+import model.CategoryModel;
 import model.LinkModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LinkDAO extends BaseDAO<LinkModel> {
@@ -15,6 +17,15 @@ public class LinkDAO extends BaseDAO<LinkModel> {
     @Override
     protected int extractID(LinkModel link) {
         return link.getID();
+    }
+
+    // Get all link IDs
+    public List<Integer> getIDs() {
+        List<Integer> ids = new ArrayList<>();
+        for (LinkModel link : links) {
+            ids.add(link.getID());
+        }
+        return ids;
     }
 
     // Create a new link
@@ -59,5 +70,16 @@ public class LinkDAO extends BaseDAO<LinkModel> {
         return links.stream()
                 .map(LinkModel::getName)
                 .toList();
+    }
+
+    // get link IDs for category
+    public List<Integer> getLinkIDsForCategory(int categoryId) {
+        List<Integer> ids = new ArrayList<>();
+        for (LinkModel link : links) {
+            if (link.getCategoryId() == categoryId) {
+                ids.add(link.getID());
+            }
+        }
+        return ids;
     }
 }
