@@ -1,4 +1,4 @@
-package view.messages;
+package messages;
 
 public class AccountMessages {
 
