@@ -3,11 +3,9 @@ package view;
 import controller.MenuOption;
 import utility.Console;
 
-import java.io.IOException;
 import java.util.List;
 
-import static view.messages.CategoryMessages.TITLE_TABLE;
-import static view.messages.TransactionMessages.*;
+import static messages.TransactionMessages.*;
 
 public class TransactionView extends BaseClass {
 

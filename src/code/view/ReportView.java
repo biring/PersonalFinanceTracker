@@ -4,7 +4,7 @@ import controller.MenuOption;
 
 import java.util.List;
 
-import static view.messages.ReportMessages.*;
+import static messages.ReportMessages.*;
 
 public class ReportView  extends BaseClass {
 

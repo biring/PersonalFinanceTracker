@@ -5,7 +5,7 @@ import utility.Console;
 
 import java.util.List;
 
-import static view.messages.CategoryMessages.*;
+import static messages.CategoryMessages.*;
 
 public class CategoryView extends BaseClass {
 

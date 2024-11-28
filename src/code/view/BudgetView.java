@@ -5,7 +5,7 @@ import utility.Console;
 
 import java.util.List;
 
-import static view.messages.BudgetMessages.*;
+import static messages.BudgetMessages.*;
 
 public class BudgetView extends BaseClass {
 

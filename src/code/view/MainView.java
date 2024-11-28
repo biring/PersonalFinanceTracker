@@ -2,7 +2,7 @@ package view;
 
 import controller.MenuOption;
 
-import static view.messages.MainMessages.*;
+import static messages.MainMessages.*;
 
 public class MainView extends BaseClass {
 

@@ -5,7 +5,7 @@ import utility.Console;
 
 import java.util.List;
 
-import static view.messages.LinkMessage.*;
+import static messages.LinkMessage.*;
 
 public class LinkView extends BaseClass {
 

@@ -5,7 +5,7 @@ import utility.Console;
 
 import java.util.List;
 
-import static view.messages.AccountMessages.*;
+import static messages.AccountMessages.*;
 
 public class AccountView extends BaseClass {
 
