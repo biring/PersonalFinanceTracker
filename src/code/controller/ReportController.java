@@ -3,7 +3,6 @@ package controller;
 import service.ReportService;
 import view.ReportView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReportController extends BaseClass<ReportView> {
@@ -42,13 +41,20 @@ public class ReportController extends BaseClass<ReportView> {
     }
 
     private void showAccountReport() {
-        List<String> report = reportService.getAccountReport();
-        view.showAccountReport(report);
+        view.showAccountReportTitle();
+        List<List<Object>> lines = reportService.getAccountReportLines();
+        for (List<Object> line : lines) {
+            view.showAccountReportData(line);
+        }
+        view.showAccountReportSummary(reportService.getAccountReportSummary());
     }
 
     private void showBudgetReport() {
-        List<String> report = reportService.getBudgetReport();
-        view.showBudgetReport(report);
+        view.showBudgetReportTitle();
+        List<List<Object>> lines = reportService.getBudgetReportLines();
+        for (List<Object> line : lines) {
+            view.showBudgetReportData(line);
+        }
     }
 
     private enum enumMenuOptions implements MenuOption {
