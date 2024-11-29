@@ -16,17 +16,8 @@ public class ReportService {
     private final LinkDAO linkDAO;
     private final TransactionDAO transactionDAO;
 
-    private final int ACCOUNT_REPORT_COLUMN_1_WIDTH = 25;
-    private final int ACCOUNT_REPORT_COLUMN_2_WIDTH = 10;
-    private final int ACCOUNT_REPORT_COLUMN_3_WIDTH = 10;
-    private final int ACCOUNT_REPORT_COLUMN_4_WIDTH = 10;
-    private final int ACCOUNT_REPORT_COLUMN_5_WIDTH = 10;
-
-    private final int BUDGET_REPORT_COLUMN_1_WIDTH = 25;
-    private final int BUDGET_REPORT_COLUMN_2_WIDTH = 10;
-    private final int BUDGET_REPORT_COLUMN_3_WIDTH = 10;
-    private final int BUDGET_REPORT_COLUMN_4_WIDTH = 10;
-
+    private double netDebits = 0;
+    private double netCredits = 0;
 
     public ReportService(AccountDAO accountDAO, CategoryDAO categoryDAO,
                          LinkDAO linkDAO, TransactionDAO transactionDAO) {
@@ -36,42 +27,18 @@ public class ReportService {
         this.transactionDAO = transactionDAO;
     }
 
-    public List<String> getAccountReport() {
-        List<String> report = new ArrayList<>();
-        report.add(generateAccountReportHeader());
-        report.add(getAccountTotals());
-        return report;
-    }
-
-    public List<String> getBudgetReport() {
-        List<String> report = new ArrayList<>();
-        report.add(generateBudgetReportHeader());
-        List<Integer> categoryIds = categoryDAO.getIDs();
-        for (Integer categoryId : categoryIds) {
-            String categoryName = categoryDAO.getNameById(categoryId);
-            double budget = categoryDAO.getBudgetById(categoryId);
-            double total = getTotalExpenseForCategory(categoryId);
-            double actual = calculateMonthlyAverageExpense(total);
-            report.add(addCategoryReportDataLine(categoryName, budget, actual));
-        }
-        return report;
-    }
-
-    private String getAccountTotals() {
-        List<String> report = new ArrayList<>();
-        double netDebits = 0;
-        double netCredits = 0;
-        // iterate over each account
+    public List<List<Object>> getAccountReportLines() {
+        this.netDebits = 0;
+        this.netCredits = 0;
+        List<List<Object>> report = new ArrayList<>();
         List<Integer> accountIds = accountDAO.getIDs();
         for (int accountId : accountIds) {
             String accountName = accountDAO.getNameById(accountId);
             AccountType accountType = accountDAO.getTypeById(accountId);
             double debits = 0;
             double credits = 0;
-            //  iterate over transactions in the account
             List<Integer> transactionIds = transactionDAO.getIDs();
             for (Integer transactionId : transactionIds) {
-                // calculate the debit and credit for the transaction
                 int transactionAccountId = transactionDAO.getAccountId(transactionId);
                 if (transactionAccountId == accountId) {
                     double amount = transactionDAO.getAmount(transactionId);
@@ -79,16 +46,40 @@ public class ReportService {
                     credits += getCreditForAccount(accountType, amount);
                 }
             }
-            // add the account data line to the report
-            report.add(addAccountReportDataLine(accountName, accountType.toString(), credits, debits));
-            // update the net debits and credits
-            netDebits += debits;
-            netCredits += credits;
+            List<Object> line = List.of(accountName,accountType.toString(),credits,debits, credits + debits);
+            report.add(line);
+            this.netDebits += debits;
+            this.netCredits += credits;
         }
-        // add the total line to the report
-        report.add(addAccountReportDataLine("TOTAL", "na", netCredits, netDebits));
-        return String.join("\n", report);
+        return report;
     }
+
+    public List<Double> getAccountReportSummary() {
+        List<Double> report = new ArrayList<>();
+        report.add(netCredits);
+        report.add(netDebits);
+        report.add(netCredits + netDebits);
+        return report;
+    }
+
+    public List<List<Object>> getBudgetReportLines() {
+        List<List<Object>> report = new ArrayList<>();
+        List<Integer> categoryIds = categoryDAO.getIDs();
+        for (Integer categoryId : categoryIds) {
+            String categoryName = categoryDAO.getNameById(categoryId);
+            double budget = categoryDAO.getBudgetById(categoryId);
+            double total = getTotalExpenseForCategory(categoryId);
+            double actual = calculateMonthlyAverageExpense(total);
+            List<Object> line = new ArrayList<>();
+            line.add(categoryName);
+            line.add(budget);
+            line.add(actual);
+            line.add(getStatus(budget, actual));
+            report.add(line);
+        }
+        return report;
+    }
+
 
     public double getDebitForAccount(AccountType accountType, double amount) {
         return calculateTransaction(accountType, amount, true);
@@ -150,7 +141,7 @@ public class ReportService {
     private String getStatus(double budget, double actual) {
         final String STATUS_OK = "OK";
         final String STATUS_OVER = "OVER";
-        final String STATUS_NA = "-";
+        final String STATUS_NA = ".";
         if (budget == 0) {
             return STATUS_NA;
         } else if (Math.abs(actual) > budget) {
@@ -158,75 +149,5 @@ public class ReportService {
         } else {
             return STATUS_OK;
         }
-    }
-
-    private String generateAccountReportHeader() {
-
-        String BUDGET_REPORT_COLUMN_1 = "[Account]";
-        String BUDGET_REPORT_COLUMN_2 = "[Type]";
-        String BUDGET_REPORT_COLUMN_3 = "[Credits]";
-        String BUDGET_REPORT_COLUMN_4 = "[Debits]";
-        String BUDGET_REPORT_COLUMN_5 = "[Net]";
-
-        String BUDGET_REPORT_HEADER_FORMAT =
-                "%-" + ACCOUNT_REPORT_COLUMN_1_WIDTH + "s" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_2_WIDTH + "s" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_3_WIDTH + "s" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_4_WIDTH + "s" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_5_WIDTH + "s";
-
-        return String.format(
-                BUDGET_REPORT_HEADER_FORMAT,
-                BUDGET_REPORT_COLUMN_1,
-                BUDGET_REPORT_COLUMN_2,
-                BUDGET_REPORT_COLUMN_3,
-                BUDGET_REPORT_COLUMN_4,
-                BUDGET_REPORT_COLUMN_5);
-    }
-
-    private String generateBudgetReportHeader() {
-
-        String BUDGET_REPORT_COLUMN_1 = "[Category]";
-        String BUDGET_REPORT_COLUMN_2 = "[Budget]";
-        String BUDGET_REPORT_COLUMN_3 = "[Actual]";
-        String BUDGET_REPORT_COLUMN_4 = "[Status]";
-
-        String BUDGET_REPORT_HEADER_FORMAT =
-                "%-" + BUDGET_REPORT_COLUMN_1_WIDTH + "s" +
-                        "%-" + BUDGET_REPORT_COLUMN_2_WIDTH + "s" +
-                        "%-" + BUDGET_REPORT_COLUMN_3_WIDTH + "s" +
-                        "%-" + BUDGET_REPORT_COLUMN_4_WIDTH + "s";
-
-        return String.format(
-                BUDGET_REPORT_HEADER_FORMAT,
-                BUDGET_REPORT_COLUMN_1,
-                BUDGET_REPORT_COLUMN_2,
-                BUDGET_REPORT_COLUMN_3,
-                BUDGET_REPORT_COLUMN_4);
-    }
-
-    private String addAccountReportDataLine(String accountName, String accountType, double credits, double debits) {
-        String ACCOUNT_REPORT_FORMAT =
-                "%-" + ACCOUNT_REPORT_COLUMN_1_WIDTH + "s" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_2_WIDTH + "s" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_3_WIDTH + ".0f" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_4_WIDTH + ".0f" +
-                        "%-" + ACCOUNT_REPORT_COLUMN_5_WIDTH + ".0f";
-
-        return String.format(
-                ACCOUNT_REPORT_FORMAT,
-                accountName, accountType, credits, debits, credits + debits);
-    }
-
-    private String addCategoryReportDataLine(String categoryName, double budget, double actual) {
-        String BUDGET_REPORT_LINE_FORMAT =
-                "%-" + BUDGET_REPORT_COLUMN_1_WIDTH + "s" +
-                        "%-" + BUDGET_REPORT_COLUMN_2_WIDTH + ".0f" +
-                        "%-" + BUDGET_REPORT_COLUMN_3_WIDTH + ".0f" +
-                        "%-" + BUDGET_REPORT_COLUMN_4_WIDTH + "s";
-
-        String status = getStatus(budget, actual);
-
-        return String.format(BUDGET_REPORT_LINE_FORMAT, categoryName, budget, actual, status);
     }
 }
