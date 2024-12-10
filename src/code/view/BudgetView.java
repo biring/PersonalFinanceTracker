@@ -18,7 +18,7 @@ public class BudgetView extends BaseClass {
     }
 
     public int promptForCategorySelection(List<String> categories) {
-        return super.getTableSelection(categories, TITLE_NO_BUDGET_TABLE, PROMPT_FOR_SELECTION_BY_NO);
+        return super.getTableSelection(categories, TITLE_BUDGET_TABLE, PROMPT_FOR_SELECTION_BY_NO);
     }
 
     public int promptForCategoryBudget() {
