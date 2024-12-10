@@ -1,8 +1,6 @@
 import controller.MainController;
 import utility.Version;
 
-import java.util.Scanner;
-
 /**
  * The {@code Main} class serves as the entry point for the Application.
  * This class contains the {@code main} method, which is the first method
@@ -16,12 +14,24 @@ public class Main {
         System.out.println("Personal Finance Tracker");
         System.out.println(Version.getVersion());
 
-        // Create an instance of MainController
-        MainController mainController = new MainController();
-
-        // Call a method on the controller to kick off the application logic
-        mainController.start();
-        mainController.run();
-        mainController.stop();
+        try {
+            MainController mainController = new MainController();
+            mainController.start();
+            mainController.run();
+            mainController.stop();
+        } catch (Exception e) {
+            System.err.println("*** ERROR *** ");
+            // Print the stack trace for detailed module, method, and line number information
+            String format = "%s > %s @ %d\n";
+            StackTraceElement[] stackTrace = e.getStackTrace();
+            for (int i = stackTrace.length - 1; i >= 0; i--) {
+                StackTraceElement element = stackTrace[i];
+                String module = element.getClassName();
+                String method = element.getMethodName();
+                int line = element.getLineNumber();
+                System.err.printf(format, module, method, line);
+            }
+            System.err.println(e.getMessage());
+        }
     }
 }
