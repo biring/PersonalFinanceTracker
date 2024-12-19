@@ -58,4 +58,17 @@ public class AccountModelTest {
         String expectedString = String.format(account.toStringFormat, number, name_updated, type);
         assertEquals(expectedString, result, "toString() should return correct string representation");
     }
+
+    /**
+     * Test the getDbName method to ensure the correct file name is generated for AccountModel.
+     */
+    @Test
+    @Order(4)
+    public void testGetDbName() {
+        // Act: Get the database file name from the AccountModel instance
+        String dbName = account.getDbName();
+
+        // Assert: Check that the database name matches the expected format.
+        assertEquals("accountmodel.json", dbName, "The DB name for AccountModel should be 'account.json'");
+    }
 }
