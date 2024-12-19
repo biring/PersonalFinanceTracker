@@ -52,4 +52,15 @@ public class BaseModel {
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * Returns a database file name based on the class name.
+     * The class name will be converted to lowercase and the extension .json will be added.
+     *
+     * @return the database file name (e.g., "account.json")
+     */
+    public String getDbName() {
+        // Retrieve the class name and convert it to lowercase, then append ".json"
+        return this.getClass().getSimpleName().toLowerCase() + ".json";
+    }
 }
