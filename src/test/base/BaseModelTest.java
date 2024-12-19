@@ -52,4 +52,13 @@ public class BaseModelTest {
         // Verify the name has been updated.
         assertEquals("Updated Name", baseModel.getName(), "The name should be updated to 'Updated Name'");
     }
+
+    /**
+     * Test the getDbName method to ensure the correct file name is generated.
+     */
+    @Test
+    public void testGetDbName() {
+        // Test for the BaseModel class (it will return "basemodel.json")
+        assertEquals("basemodel.json", baseModel.getDbName(), "The DB name for BaseModel should be 'basemodel.json'");
+    }
 }
