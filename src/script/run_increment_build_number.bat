@@ -1,9 +1,9 @@
+@echo off
+
 REM ### TO INCREMENT BUILD NUMBER ###
 REM 1. Should be run after unit test execution is successful.
 REM 2. Navigate to script folder in the project.
 REM 3. Run the command = .\run_inc_build_number.bat
-
-@echo off
 
 :: Get path to the script's directory
 cd /d %~dp0
