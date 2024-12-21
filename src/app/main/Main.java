@@ -15,6 +15,7 @@ public class Main {
         System.out.println("Application started...");
         System.out.println("Personal Finance Tracker");
         System.out.println(Version.getVersion());
+        System.out.println(Version.getBuild());
 
         try {
             MainController mainController = new MainController();
