@@ -4,6 +4,9 @@ REM 1. Should be run before push to remote.
 REM 2. Navigate to the script folder in the project.
 REM 3. Run the command = .\run_git_pre_push_hook.bat
 
+echo
+echo *** GIT PRE PUSH SCRIPT ***
+
 :: Call script to run unit tests
 call run_tests.bat
 IF ERRORLEVEL 1 (
@@ -19,7 +22,8 @@ IF ERRORLEVEL 1 (
 )
 
 :: Add the version file to the staging area after build number increment
-git add src/app/common/version.txt
+cd ../..
+git add src/app/common/Version.java
 IF ERRORLEVEL 1 (
     echo "Failed to stage changes, aborting."
     exit /b 1
@@ -32,4 +36,4 @@ IF ERRORLEVEL 1 (
     exit /b 1
 )
 
-echo "Pre-push hook completed successfully."
+echo Git pre push script completed successfully
