@@ -33,7 +33,9 @@ IF ERRORLEVEL 1 (
 
 :: End of script message
 echo *** End of run all unit test script ***
-echo
 
 :: Disable local scope for variables created in this script
 endlocal
+
+:: Exit the script with success code
+exit /b 0
