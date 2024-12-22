@@ -8,13 +8,32 @@ REM 4. [Optional] Run command "mvn -version" to verify Apache Maven is set up co
 REM 5. Navigate to script folder in the project. Example = cd C:\Users\birin\Desktop\PersonalFinanceTracker\src\script
 REM 6. Run the command = .\run_tests.bat
 
-REM Limit variables created in this script to a local scope
+:: Limit variables created in this script to a local scope
 setlocal
 
-REM Change to the directory of your project root where pom.xml is located
-cd ..\..
+:: Start of script message
+echo *** Start of run all unit test script ***
 
-rem Run Maven tests
+:: Get path to the script's directory
+cd /d %~dp0
+echo This script's path is %cd%
+
+:: Change to the directory of your project root where pom.xml is located
+cd ..
+echo Expecting pom.xml at %cd%
+
+:: Run all unit test using Maven
 call mvn test
 
+:: Check if the Java program exited successfully
+IF ERRORLEVEL 1 (
+    echo Unit test run unsuccessful
+    exit /b 1
+)
+
+:: End of script message
+echo *** End of run all unit test script ***
+echo
+
+:: Disable local scope for variables created in this script
 endlocal
