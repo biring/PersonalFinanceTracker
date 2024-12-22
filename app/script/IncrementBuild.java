@@ -110,7 +110,9 @@ public class IncrementBuild {
                 if (matcher.find()) {
                     // Extract the current build number and increment it by 1.
                     int buildNo = Integer.parseInt(matcher.group());
-                    line = line.replaceFirst("(\\d+)", String.valueOf(buildNo + 1));
+                    int nextBuildNo = buildNo + 1;
+                    System.out.println("Build number increased from " + buildNo + " to " + nextBuildNo);
+                    line = line.replaceFirst("(\\d+)", String.valueOf(nextBuildNo));
                     isBuildIncrement = true;
                 }
             }
