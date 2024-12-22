@@ -9,7 +9,7 @@ REM 3. Run the command = .\run_git_pre_push_hook.bat
 setlocal
 
 :: Start of script message
-echo *** Start of pre push script ***
+echo +++ Start of pre push script +++
 
 :: Get path to the script's directory
 cd /d %~dp0
@@ -80,7 +80,7 @@ IF ERRORLEVEL 1 (
 )
 
 :: End of script message
-echo *** End of pre push script ***
+echo --- End of pre push script ---
 
 :: Disable local scope for variables created in this script
 endlocal
