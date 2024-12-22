@@ -17,6 +17,11 @@ public class AccountModel extends BaseModel {
      * This field is final and cannot be modified.
      */
     private final AccountType accountType;
+
+    /**
+     * Represents the format used for generating a string representation of an AccountModel instance.
+     * The format includes placeholders for ID, name, and type.
+     */
     protected final String toStringFormat = "Account: Id=%d, Name=%s, Type=%s";
 
     /**
@@ -47,6 +52,6 @@ public class AccountModel extends BaseModel {
      */
     @Override
     public String toString() {
-        return String.format(toStringFormat, super.id, super.name, this.accountType);
+        return String.format(toStringFormat, getID(), getName(), getAccountType());
     }
 }
