@@ -21,7 +21,7 @@ public class Version {
     private static final int patch = 0;
 
     // Build version number
-    private static final int build = 38;
+    private static final int build = 39;
 
     // Format string for version
     private static final String versionFormat = "Version %d.%d.%d";
