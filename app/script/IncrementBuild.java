@@ -44,7 +44,7 @@ public class IncrementBuild {
             Path projectRoot = findProjectRoot(currentDir);
 
             // Construct the path to "Version.java" relative to the project root.
-            versionFilePath = projectRoot.resolve("src").resolve("app").resolve("common").resolve("Version.java");
+            versionFilePath = projectRoot.resolve("app").resolve("common").resolve("Version.java");
 
             // Read all lines from the "Version.java" file.
             List<String> lines = Files.readAllLines(versionFilePath);
