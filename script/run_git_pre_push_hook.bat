@@ -79,6 +79,15 @@ IF ERRORLEVEL 1 (
     echo git commit message for Version.java successful
 )
 
+:: Automatically push Version.java commit with the triggered push to the remote repository
+git push
+IF ERRORLEVEL 1 (
+    echo ERROR generated during git push
+    exit /b 1
+) else (
+    echo git push successful
+)
+
 :: End of script message
 echo --- End of pre push script ---
 
