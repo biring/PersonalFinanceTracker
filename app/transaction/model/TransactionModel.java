@@ -1,9 +1,8 @@
 package transaction.model;
 
 import base.BaseModel;
+import common.DateUtils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -96,8 +95,7 @@ public class TransactionModel extends BaseModel {
      */
     @Override
     public String toString() {
-        DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
-        String dateAsString = df.format(getDate());
+        String dateAsString = DateUtils.formatDateObjectToString(getDate());
         return String.format(toStringFormat, getID(), dateAsString, getName(), getAmount(), getAccountId());
     }
 }
