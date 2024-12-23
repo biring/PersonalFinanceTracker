@@ -42,7 +42,8 @@ public class Console {
     public static int getIntInput(Scanner scanner) {
         while (true) {
             try {
-                return Integer.parseInt(getStringInput(scanner));
+                String input = scanner.nextLine();
+                return Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 Console.printPrompt("Invalid input. Please enter a number: ");
             }
