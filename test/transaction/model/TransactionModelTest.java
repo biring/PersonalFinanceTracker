@@ -1,9 +1,8 @@
 package transaction.model;
 
+import common.DateUtils;
 import org.junit.jupiter.api.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -85,8 +84,7 @@ public class TransactionModelTest {
         // Generate the string representation for transaction model
         String result = transactionModel.toString();
         // Format the date similar to how it's formatted in the toString() method
-        DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
-        String formattedFixedDate = df.format(fixedDate);
+        String formattedFixedDate = DateUtils.formatDateObjectToString(fixedDate);
         // Define the expected string format
         String expectedString = String.format(transactionModel.toStringFormat, id, formattedFixedDate, name_updated, amount, accountId);
         // Assert that the generated string matches the expected string
