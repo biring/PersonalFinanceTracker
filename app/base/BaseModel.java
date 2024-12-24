@@ -9,16 +9,21 @@ public class BaseModel {
     /**
      * The unique identifier for this model instance. This field is final and cannot be modified.
      */
-    protected final int id;
+    private final int id;
     /**
      * The name associated with this model. It can be modified using the setter method.
      */
-    protected String name;
+    private String name;
+    /**
+     * The file extension for database files used in the system.
+     * This variable is set to ".json" indicating the files are in JSON format.
+     */
+    private final String DATABASE_FILE_EXTENSION = ".json";
 
     /**
      * Constructs a new BaseModel with the specified ID and name.
      *
-     * @param id the unique identifier for the model
+     * @param id   the unique identifier for the model
      * @param name the name associated with the model
      */
     public BaseModel(int id, String name) {
@@ -40,7 +45,7 @@ public class BaseModel {
      *
      * @return the name of the model
      */
-    public String getName() {
+    public final String getName() {
         return this.name;
     }
 
@@ -49,7 +54,7 @@ public class BaseModel {
      *
      * @param name the new name to set for the model
      */
-    public void setName(String name) {
+    public final void setName(String name) {
         this.name = name;
     }
 
@@ -59,8 +64,8 @@ public class BaseModel {
      *
      * @return the database file name (e.g., "account.json")
      */
-    public String getDbName() {
-        // Retrieve the class name and convert it to lowercase, then append ".json"
-        return this.getClass().getSimpleName().toLowerCase() + ".json";
+    public final String getDbName() {
+        // Retrieve the class name and convert it to lowercase, then append file extension
+        return this.getClass().getSimpleName().toLowerCase() + DATABASE_FILE_EXTENSION;
     }
 }
