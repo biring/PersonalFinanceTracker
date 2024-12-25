@@ -12,7 +12,9 @@ This project demonstrates my ability to:
   - **Model**: Manages data like bank accounts, transactions, and budgets.
   - **View**: Displays data and handles user interactions (text-based interface).
   - **Controller**: Processes user input, updates the model, and refreshes the view.
-- Follow **Object-Oriented Analysis and Design (OOAD)** principles to create a structured, maintainable system with well-defined objects and relationships.
+- Follow **Object-Oriented Analysis and Design (OOAD)** principles to create a structured, maintainable system with well-defined objects and relationships. 
+- Ensure reliability and correctness by writing **JUnit unit tests** for core functionality. 
+- Automate the build process and manage build versioning using **batch scripts** as part of the **Git workflow**.
 
 The project adheres to:
 - **GRASP (General Responsibility Assignment Software Patterns)**: Ensures logical and maintainable responsibility assignment.
